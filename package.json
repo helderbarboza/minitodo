@@ -11,6 +11,9 @@
     "lint": "eslint .",
     "format": "eslint . --fix"
   },
+  "dependencies": {
+    "mode-watcher": "^0.4.1"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^3.8.0",
     "@sveltejs/adapter-auto": "^3.0.0",
