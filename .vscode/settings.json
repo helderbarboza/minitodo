@@ -20,7 +20,11 @@
     { "rule": "*-dangle", "severity": "off", "fixable": true },
     { "rule": "*-newline", "severity": "off", "fixable": true },
     { "rule": "*quotes", "severity": "off", "fixable": true },
-    { "rule": "*semi", "severity": "off", "fixable": true }
+    { "rule": "*semi", "severity": "off", "fixable": true },
+    { "rule": "no-unused-*", "severity": "info", "fixable": true },
+    { "rule": "perfectionist/*", "severity": "info", "fixable": true },
+    { "rule": "svelte/indent", "severity": "info", "fixable": true },
+    { "rule": "readable-tailwind/*", "severity": "info", "fixable": true }
   ],
 
   // Enable eslint for all supported languages
@@ -46,5 +50,8 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false
 }
