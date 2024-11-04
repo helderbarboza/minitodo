@@ -8,7 +8,7 @@
 
 <ModeWatcher />
 
-<main class="container">
+<main class="container select-none">
   {@render children()}
 </main>
 
