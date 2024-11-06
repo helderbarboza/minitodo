@@ -55,6 +55,8 @@
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu'
   import { Label } from '$lib/components/ui/label'
   import { Switch } from '$lib/components/ui/switch'
+  import LL, { setLocale } from '$lib/i18n/i18n-svelte'
+  import { locales } from '$lib/i18n/i18n-util'
   import { cn } from '$lib/utils'
   import Icon from '@iconify/svelte'
   import { DropdownMenu as DropdownMenuPrimitive } from 'bits-ui'
@@ -135,19 +137,6 @@
   let scrollY: number
   const scrollThreshold = 96
 
-  const emptyStates = [
-    'Your list is clear, enjoy your day!',
-    'Nothing here! Time to relax or plan something new.',
-    'Congratulations! You\'ve checked everything off!',
-    'No tasks? Looks like it\'s break time!',
-    'Todo list: conquered. What\'s next on your agenda?',
-    'Empty list, full possibilities. What will you add?',
-    'All tasks completed! Feel the freedom.',
-    'A blank slate! Ready for your next big idea.',
-    'You\'ve done it all - a moment of peace.',
-    'List is empty, life is full. What\'s your next adventure?',
-  ]
-
 </script>
 
 <svelte:head>
@@ -169,7 +158,7 @@
       autofocus={true}
       bind:this={newInputEl}
       data-nav
-      placeholder="Add new task"
+      placeholder={$LL.taskDescriptionPlaceholder[Math.floor(Object.keys($LL.taskDescriptionPlaceholder).length * Math.random()).toString() as keyof typeof $LL.taskDescriptionPlaceholder]()}
       class="
         mb-2 flex h-9 w-full border-b border-dashed border-input bg-background px-3 py-2 text-sm
         ring-offset-background transition-all disabled:cursor-not-allowed disabled:opacity-50
@@ -278,11 +267,11 @@
           <DropdownMenu.Group>
             <DropdownMenu.Item onclick={() => toggleIsArchivedTask(data.id)}>
               <Icon icon="fluent:mail-inbox-16-regular" />
-              {data.isArchived ? 'Unarchive' : 'Archive'}
+              {data.isArchived ? $LL.actions.unarchive() : $LL.actions.archive()}
             </DropdownMenu.Item>
             <DropdownMenu.Item onclick={() => deleteTask(data.id)}>
               <Icon icon="fluent:dismiss-16-regular" />
-              Delete
+              {$LL.actions.delete()}
             </DropdownMenu.Item>
           </DropdownMenu.Group>
         </DropdownMenu.Content>
@@ -334,7 +323,7 @@
                   (task.isDone && !task.isArchived) ? { ...task, isArchived: true } : task)}
             >
               <Icon icon="fluent:mail-inbox-checkmark-16-regular" />
-              Archive done tasks
+              {$LL.actions.archiveDoneTasks()}
             </DropdownMenu.Item>
           </DropdownMenu.Group>
           <DropdownMenu.Separator />
@@ -347,15 +336,14 @@
                 )}
             >
               <Icon icon="fluent:mail-inbox-16-regular" />
-
-              Restore pending tasks
+              {$LL.actions.restorePendingTasks()}
             </DropdownMenu.Item>
             <DropdownMenu.Item
               disabled={!$tasks.find(task => task.isArchived)}
               onclick={() => $tasks = $tasks.filter(task => !task.isArchived)}
             >
               <Icon icon="fluent:mail-inbox-dismiss-16-regular" />
-              Delete all archived
+              {$LL.actions.deleteAllArchived()}
             </DropdownMenu.Item>
           </DropdownMenu.Group>
           <DropdownMenu.Separator />
@@ -368,24 +356,38 @@
               "
             >
               <Icon icon="fluent:dismiss-square-multiple-16-regular" />
-              Delete all
+              {$LL.actions.deleteAll()}
             </DropdownMenu.Item>
             <DropdownMenu.Separator />
             <DropdownMenu.Item onclick={() => toggleMode()}>
               <Icon icon="fluent:weather-sunny-16-regular" class="block dark:hidden" />
               <Icon icon="fluent:weather-moon-16-regular" class="hidden dark:block" />
-              Mode light/dark
+              {$LL.mode()}
             </DropdownMenu.Item>
+            <DropdownMenu.Sub>
+              <DropdownMenu.SubTrigger>
+                <Icon icon="fluent:local-language-16-regular" />
+                {$LL.language()}
+              </DropdownMenu.SubTrigger>
+              <DropdownMenu.SubContent>
+                {#each locales as locale}
+                  <DropdownMenu.Item onclick={() => setLocale(locale)}>{new Intl.DisplayNames([locale], { type: 'language' }).of(locale)}</DropdownMenu.Item>
+                {/each}
+              </DropdownMenu.SubContent>
+
+            </DropdownMenu.Sub>
+            <DropdownMenu.Separator />
             <DropdownMenu.Item onclick={() => $tasks = exampleTasks}>
               Reset
             </DropdownMenu.Item>
+
           </DropdownMenu.Group>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
       <div class="mx-auto"></div>
       <Label for="show-done" class="flex items-center gap-x-2 px-2.5">
         <Switch bind:checked={showDone} id="show-done" />
-        <span>{hiddenDoneCount} done tasks</span>
+        <span>{$LL.nDoneTasks({ count: hiddenDoneCount })}</span>
       </Label>
       <Button
         onclick={() => {
@@ -394,12 +396,13 @@
         }}
       >
         <Icon icon="fluent:square-add-16-regular" />
-        <span class="hidden sm:block">New task</span>
+        <span class="hidden sm:block">{$LL.actions.newTask()}</span>
       </Button>
 
     </div>
 
   </header>
+
   <section class="container mb-16 mt-4 space-y-4">
     <section class="flex flex-col p-2">
       {@render addTaskInput()}
@@ -413,7 +416,7 @@
         </div>
       {:else}
         <div class="px-8 py-16 text-center font-medium" in:fade>
-          {emptyStates.at(Math.floor(emptyStates.length * Math.random()))}
+          {$LL.emptyState[Math.floor(Object.keys($LL.emptyState).length * Math.random()).toString() as keyof typeof $LL.emptyState]()}
         </div>
       {/each}
     </section>
@@ -424,7 +427,7 @@
           data-nav
           tabindex={0}
           on:keyup={handleArrowNavigation}
-          style:--text={archivedSectionOpen ? '\'Hide archived\'' : '\'Show archived\''}
+          style:--text="'{archivedSectionOpen ? $LL.actions.hideArchived() : $LL.actions.showArchived()}'"
           class="
             mb-1 select-none py-2 text-center text-xs text-muted-foreground underline-offset-2
             hover:underline

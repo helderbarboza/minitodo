@@ -15,17 +15,357 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
 	/**
-	 * H​i​ ​{​n​a​m​e​}​!​ ​P​l​e​a​s​e​ ​l​e​a​v​e​ ​a​ ​s​t​a​r​ ​i​f​ ​y​o​u​ ​l​i​k​e​ ​t​h​i​s​ ​p​r​o​j​e​c​t​:​ ​h​t​t​p​s​:​/​/​g​i​t​h​u​b​.​c​o​m​/​i​v​a​n​h​o​f​e​r​/​t​y​p​e​s​a​f​e​-​i​1​8​n
-	 * @param {string} name
+	 * {​c​o​u​n​t​}​ ​d​o​n​e​ ​t​a​s​k​s
+	 * @param {number} count
 	 */
-	HI: RequiredParams<'name'>
+	nDoneTasks: RequiredParams<'count'>
+	/**
+	 * L​a​n​g​u​a​g​e
+	 */
+	language: string
+	/**
+	 * M​o​d​e​ ​l​i​g​h​t​/​d​a​r​k
+	 */
+	mode: string
+	actions: {
+		/**
+		 * D​e​l​e​t​e
+		 */
+		'delete': string
+		/**
+		 * A​r​c​h​i​v​e
+		 */
+		archive: string
+		/**
+		 * U​n​a​r​c​h​i​v​e
+		 */
+		unarchive: string
+		/**
+		 * D​e​l​e​t​e​ ​a​l​l
+		 */
+		deleteAll: string
+		/**
+		 * D​e​l​e​t​e​ ​a​l​l​ ​a​r​c​h​i​v​e​d​ ​t​a​s​k​s
+		 */
+		deleteAllArchived: string
+		/**
+		 * U​n​a​r​c​h​i​v​e​ ​p​e​n​d​i​n​g​ ​t​a​s​k​s
+		 */
+		restorePendingTasks: string
+		/**
+		 * A​r​c​h​i​v​e​ ​d​o​n​e​ ​t​a​s​k​s
+		 */
+		archiveDoneTasks: string
+		/**
+		 * N​e​w​ ​t​a​s​k
+		 */
+		newTask: string
+		/**
+		 * S​h​o​w​ ​a​r​c​h​i​v​e​d
+		 */
+		showArchived: string
+		/**
+		 * H​i​d​e​ ​a​r​c​h​i​v​e​d
+		 */
+		hideArchived: string
+	}
+	emptyState: {
+		/**
+		 * Y​o​u​r​ ​l​i​s​t​ ​i​s​ ​c​l​e​a​r​,​ ​e​n​j​o​y​ ​y​o​u​r​ ​d​a​y​!
+		 */
+		'0': string
+		/**
+		 * N​o​t​h​i​n​g​ ​h​e​r​e​!​ ​T​i​m​e​ ​t​o​ ​r​e​l​a​x​ ​o​r​ ​p​l​a​n​ ​s​o​m​e​t​h​i​n​g​ ​n​e​w​.
+		 */
+		'1': string
+		/**
+		 * C​o​n​g​r​a​t​u​l​a​t​i​o​n​s​!​ ​Y​o​u​'​v​e​ ​c​h​e​c​k​e​d​ ​e​v​e​r​y​t​h​i​n​g​ ​o​f​f​!
+		 */
+		'2': string
+		/**
+		 * N​o​ ​t​a​s​k​s​?​ ​L​o​o​k​s​ ​l​i​k​e​ ​i​t​'​s​ ​b​r​e​a​k​ ​t​i​m​e​!
+		 */
+		'3': string
+		/**
+		 * T​o​d​o​ ​l​i​s​t​:​ ​c​o​n​q​u​e​r​e​d​.​ ​W​h​a​t​'​s​ ​n​e​x​t​ ​o​n​ ​y​o​u​r​ ​a​g​e​n​d​a​?
+		 */
+		'4': string
+		/**
+		 * E​m​p​t​y​ ​l​i​s​t​,​ ​f​u​l​l​ ​p​o​s​s​i​b​i​l​i​t​i​e​s​.​ ​W​h​a​t​ ​w​i​l​l​ ​y​o​u​ ​a​d​d​?
+		 */
+		'5': string
+		/**
+		 * A​l​l​ ​t​a​s​k​s​ ​c​o​m​p​l​e​t​e​d​!​ ​F​e​e​l​ ​t​h​e​ ​f​r​e​e​d​o​m​.
+		 */
+		'6': string
+		/**
+		 * A​ ​b​l​a​n​k​ ​s​l​a​t​e​!​ ​R​e​a​d​y​ ​f​o​r​ ​y​o​u​r​ ​n​e​x​t​ ​b​i​g​ ​i​d​e​a​.
+		 */
+		'7': string
+		/**
+		 * Y​o​u​'​v​e​ ​d​o​n​e​ ​i​t​ ​a​l​l​ ​-​ ​a​ ​m​o​m​e​n​t​ ​o​f​ ​p​e​a​c​e​.
+		 */
+		'8': string
+		/**
+		 * L​i​s​t​ ​i​s​ ​e​m​p​t​y​,​ ​l​i​f​e​ ​i​s​ ​f​u​l​l​.​ ​W​h​a​t​'​s​ ​y​o​u​r​ ​n​e​x​t​ ​a​d​v​e​n​t​u​r​e​?
+		 */
+		'9': string
+	}
+	taskDescriptionPlaceholder: {
+		/**
+		 * B​u​y​ ​a​ ​n​e​w​.​.​.
+		 */
+		'0': string
+		/**
+		 * R​e​s​e​a​r​c​h​ ​t​h​e​ ​b​e​s​t​.​.​.
+		 */
+		'1': string
+		/**
+		 * S​c​h​e​d​u​l​e​ ​a​n​ ​a​p​p​o​i​n​t​m​e​n​t​ ​f​o​r​.​.​.
+		 */
+		'2': string
+		/**
+		 * C​a​l​l​ ​t​o​ ​c​o​n​f​i​r​m​.​.​.
+		 */
+		'3': string
+		/**
+		 * U​p​d​a​t​e​ ​t​h​e​ ​d​e​t​a​i​l​s​ ​o​f​.​.​.
+		 */
+		'4': string
+		/**
+		 * O​r​g​a​n​i​z​e​ ​f​i​l​e​s​ ​r​e​l​a​t​e​d​ ​t​o​.​.​.
+		 */
+		'5': string
+		/**
+		 * S​e​n​d​ ​a​ ​f​o​l​l​o​w​-​u​p​ ​e​m​a​i​l​ ​a​b​o​u​t​.​.​.
+		 */
+		'6': string
+		/**
+		 * P​r​e​p​a​r​e​ ​a​ ​r​e​p​o​r​t​ ​o​n​.​.​.
+		 */
+		'7': string
+		/**
+		 * S​e​t​ ​a​ ​r​e​m​i​n​d​e​r​ ​f​o​r​.​.​.
+		 */
+		'8': string
+		/**
+		 * C​r​e​a​t​e​ ​a​ ​p​l​a​n​ ​f​o​r​.​.​.
+		 */
+		'9': string
+		/**
+		 * C​h​e​c​k​ ​t​h​e​ ​s​t​a​t​u​s​ ​o​f​.​.​.
+		 */
+		'10': string
+		/**
+		 * C​l​e​a​n​ ​u​p​ ​t​h​e​.​.​.
+		 */
+		'11': string
+		/**
+		 * T​a​l​k​ ​t​o​.​.​.
+		 */
+		'12': string
+		/**
+		 * M​a​k​e​ ​a​ ​l​i​s​t​ ​o​f​.​.​.
+		 */
+		'13': string
+		/**
+		 * P​i​c​k​ ​u​p​ ​s​o​m​e​.​.​.
+		 */
+		'14': string
+		/**
+		 * C​o​o​k​ ​o​r​ ​p​r​e​p​a​r​e​.​.​.
+		 */
+		'15': string
+		/**
+		 * L​o​o​k​ ​f​o​r​ ​a​ ​p​l​a​c​e​ ​t​o​.​.​.
+		 */
+		'16': string
+		/**
+		 * R​e​c​h​a​r​g​e​ ​t​h​e​.​.​.
+		 */
+		'17': string
+		/**
+		 * P​l​a​n​ ​a​ ​d​a​y​ ​f​o​r​.​.​.
+		 */
+		'18': string
+	}
 }
 
 export type TranslationFunctions = {
 	/**
-	 * Hi {name}! Please leave a star if you like this project: https://github.com/ivanhofer/typesafe-i18n
+	 * {count} done tasks
 	 */
-	HI: (arg: { name: string }) => LocalizedString
+	nDoneTasks: (arg: { count: number }) => LocalizedString
+	/**
+	 * Language
+	 */
+	language: () => LocalizedString
+	/**
+	 * Mode light/dark
+	 */
+	mode: () => LocalizedString
+	actions: {
+		/**
+		 * Delete
+		 */
+		'delete': () => LocalizedString
+		/**
+		 * Archive
+		 */
+		archive: () => LocalizedString
+		/**
+		 * Unarchive
+		 */
+		unarchive: () => LocalizedString
+		/**
+		 * Delete all
+		 */
+		deleteAll: () => LocalizedString
+		/**
+		 * Delete all archived tasks
+		 */
+		deleteAllArchived: () => LocalizedString
+		/**
+		 * Unarchive pending tasks
+		 */
+		restorePendingTasks: () => LocalizedString
+		/**
+		 * Archive done tasks
+		 */
+		archiveDoneTasks: () => LocalizedString
+		/**
+		 * New task
+		 */
+		newTask: () => LocalizedString
+		/**
+		 * Show archived
+		 */
+		showArchived: () => LocalizedString
+		/**
+		 * Hide archived
+		 */
+		hideArchived: () => LocalizedString
+	}
+	emptyState: {
+		/**
+		 * Your list is clear, enjoy your day!
+		 */
+		'0': () => LocalizedString
+		/**
+		 * Nothing here! Time to relax or plan something new.
+		 */
+		'1': () => LocalizedString
+		/**
+		 * Congratulations! You've checked everything off!
+		 */
+		'2': () => LocalizedString
+		/**
+		 * No tasks? Looks like it's break time!
+		 */
+		'3': () => LocalizedString
+		/**
+		 * Todo list: conquered. What's next on your agenda?
+		 */
+		'4': () => LocalizedString
+		/**
+		 * Empty list, full possibilities. What will you add?
+		 */
+		'5': () => LocalizedString
+		/**
+		 * All tasks completed! Feel the freedom.
+		 */
+		'6': () => LocalizedString
+		/**
+		 * A blank slate! Ready for your next big idea.
+		 */
+		'7': () => LocalizedString
+		/**
+		 * You've done it all - a moment of peace.
+		 */
+		'8': () => LocalizedString
+		/**
+		 * List is empty, life is full. What's your next adventure?
+		 */
+		'9': () => LocalizedString
+	}
+	taskDescriptionPlaceholder: {
+		/**
+		 * Buy a new...
+		 */
+		'0': () => LocalizedString
+		/**
+		 * Research the best...
+		 */
+		'1': () => LocalizedString
+		/**
+		 * Schedule an appointment for...
+		 */
+		'2': () => LocalizedString
+		/**
+		 * Call to confirm...
+		 */
+		'3': () => LocalizedString
+		/**
+		 * Update the details of...
+		 */
+		'4': () => LocalizedString
+		/**
+		 * Organize files related to...
+		 */
+		'5': () => LocalizedString
+		/**
+		 * Send a follow-up email about...
+		 */
+		'6': () => LocalizedString
+		/**
+		 * Prepare a report on...
+		 */
+		'7': () => LocalizedString
+		/**
+		 * Set a reminder for...
+		 */
+		'8': () => LocalizedString
+		/**
+		 * Create a plan for...
+		 */
+		'9': () => LocalizedString
+		/**
+		 * Check the status of...
+		 */
+		'10': () => LocalizedString
+		/**
+		 * Clean up the...
+		 */
+		'11': () => LocalizedString
+		/**
+		 * Talk to...
+		 */
+		'12': () => LocalizedString
+		/**
+		 * Make a list of...
+		 */
+		'13': () => LocalizedString
+		/**
+		 * Pick up some...
+		 */
+		'14': () => LocalizedString
+		/**
+		 * Cook or prepare...
+		 */
+		'15': () => LocalizedString
+		/**
+		 * Look for a place to...
+		 */
+		'16': () => LocalizedString
+		/**
+		 * Recharge the...
+		 */
+		'17': () => LocalizedString
+		/**
+		 * Plan a day for...
+		 */
+		'18': () => LocalizedString
+	}
 }
 
 export type Formatters = {}
