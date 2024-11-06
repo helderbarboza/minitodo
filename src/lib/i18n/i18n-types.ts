@@ -49,9 +49,9 @@ type RootTranslation = {
 		 */
 		deleteAllArchived: string
 		/**
-		 * U​n​a​r​c​h​i​v​e​ ​p​e​n​d​i​n​g​ ​t​a​s​k​s
+		 * U​n​a​r​c​h​i​v​e​ ​a​l​l​ ​p​e​n​d​i​n​g​ ​t​a​s​k​s
 		 */
-		restorePendingTasks: string
+		restoreAllPendingTasks: string
 		/**
 		 * A​r​c​h​i​v​e​ ​d​o​n​e​ ​t​a​s​k​s
 		 */
@@ -226,9 +226,9 @@ export type TranslationFunctions = {
 		 */
 		deleteAllArchived: () => LocalizedString
 		/**
-		 * Unarchive pending tasks
+		 * Unarchive all pending tasks
 		 */
-		restorePendingTasks: () => LocalizedString
+		restoreAllPendingTasks: () => LocalizedString
 		/**
 		 * Archive done tasks
 		 */

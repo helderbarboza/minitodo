@@ -10,7 +10,7 @@ const ptbr = {
     unarchive: 'Desarquivar',
     deleteAll: 'Apagar tudo',
     deleteAllArchived: 'Apagar todas tarefas arquivadas',
-    restorePendingTasks: 'Desarquivar tarefas pendentes',
+    restoreAllPendingTasks: 'Desarquivar todas tarefas pendentes',
     archiveDoneTasks: 'Arquivar tarefas concluídas',
     newTask: 'Nova tarefa',
     showArchived: 'Mostrar arquivados',

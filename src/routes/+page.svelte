@@ -148,7 +148,7 @@
   <form
     bind:this={newFormEl}
     class="contents"
-    on:submit={(e) => {
+    onsubmit={(e) => {
       e.preventDefault()
       createTask()
     }}
@@ -166,7 +166,7 @@
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
         focus-visible:ring-offset-0 placeholder:text-muted-foreground
       "
-      on:blur={(e) => {
+      onblur={(e) => {
         if (e.currentTarget.value.length) {
           newFormEl.requestSubmit()
         }
@@ -174,7 +174,7 @@
           newFormEl.reset()
         }
       }}
-      on:keyup={(e) => { e.code === 'Escape' ? newFormEl.reset() : handleArrowNavigation(e) }}
+      onkeyup={(e) => { e.code === 'Escape' ? newFormEl.reset() : handleArrowNavigation(e) }}
     />
   </form>
 
@@ -190,13 +190,15 @@
   `, variant: 'ghost', size: 'default' }))}
     data-checked={data.isDone}
     data-nav
-    on:keyup={handleArrowNavigation}
-    on:keyup={e => e.code === 'Delete' && deleteTask(data.id)}
-    on:keyup={e => e.code === 'Space' && toggleIsDoneTask(data.id)}
+    onkeyup={(e) => {
+      handleArrowNavigation(e)
+      e.code === 'Space' && toggleIsDoneTask(data.id)
+      e.code === 'Delete' && deleteTask(data.id)
+    }}
   >
     <button
       class="inline-flex shrink-0 items-baseline p-1 group/checkbox"
-      on:click={() => toggleIsDoneTask(data.id)}
+      onclick={() => toggleIsDoneTask(data.id)}
     >
       <div class="
         relative size-4 rounded-full border border-foreground transition-all
@@ -296,15 +298,17 @@
       <button
         class="relative"
         type="button"
-        on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
         <h1 class="text-xl leading-none">todo</h1>
-        <Badge class="
-          pointer-events-none absolute -end-3 -top-2 inline-flex size-4 items-center justify-center
-          rounded-full p-0 text-[0.625rem] leading-none
-        ">
-          {pendingAndUnarchivedCount}
-        </Badge>
+        {#if pendingAndUnarchivedCount}
+          <Badge class="
+            pointer-events-none absolute -end-3 -top-2 inline-flex size-4 items-center
+            justify-center rounded-full p-0 text-[0.625rem] leading-none
+          ">
+            {pendingAndUnarchivedCount}
+          </Badge>
+        {/if}
       </button>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
@@ -336,7 +340,7 @@
                 )}
             >
               <Icon icon="fluent:mail-inbox-16-regular" />
-              {$LL.actions.restorePendingTasks()}
+              {$LL.actions.restoreAllPendingTasks()}
             </DropdownMenu.Item>
             <DropdownMenu.Item
               disabled={!$tasks.find(task => task.isArchived)}
@@ -415,18 +419,27 @@
           {@render taskItem(task.id)}
         </div>
       {:else}
-        <div class="px-8 py-16 text-center font-medium" in:fade>
+        <div class="px-8 py-[calc(50vh-130px)] text-center font-medium" in:fade>
           {$LL.emptyState[Math.floor(Object.keys($LL.emptyState).length * Math.random()).toString() as keyof typeof $LL.emptyState]()}
         </div>
       {/each}
     </section>
     {#if $tasks.find(t => t.isArchived)}
-      <details bind:open={archivedSectionOpen} class="rounded-md p-2 transition-all open:bg-card">
+      <details
+        bind:open={archivedSectionOpen}
+        class="rounded-md p-2 transition-all open:bg-card"
+        ontoggle={(e) => {
+          e.currentTarget.open && window.scroll({
+            top: e.currentTarget.offsetTop,
+            behavior: 'smooth',
+          })
+        }}
+      >
         <summary
           id="archived-section"
           data-nav
           tabindex={0}
-          on:keyup={handleArrowNavigation}
+          onkeyup={handleArrowNavigation}
           style:--text="'{archivedSectionOpen ? $LL.actions.hideArchived() : $LL.actions.showArchived()}'"
           class="
             mb-1 select-none py-2 text-center text-xs text-muted-foreground underline-offset-2
