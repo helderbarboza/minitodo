@@ -1,5 +1,4 @@
-<script context="module">
-  import type { Writable } from 'svelte/store'
+<script context="module" lang="ts">
   import { writable } from 'svelte/store'
 
   const localStorageKey = 'tasks'
@@ -50,6 +49,7 @@
 </script>
 
 <script lang="ts">
+  import type { Writable } from 'svelte/store'
   import { Badge } from '$lib/components/ui/badge'
   import { Button, buttonVariants } from '$lib/components/ui/button'
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu'
