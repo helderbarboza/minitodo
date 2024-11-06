@@ -13,8 +13,9 @@
 </main>
 
 <style>
-  :global(html) {
+  :global(*) {
     scrollbar-gutter: stable;
     scrollbar-width: thin;
+    scrollbar-color: hsl(var(--accent)) hsl(var(--background));
   }
 </style>

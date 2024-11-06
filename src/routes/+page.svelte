@@ -135,7 +135,7 @@
   }
 
   let scrollY: number
-  const scrollThreshold = 96
+  const scrollThreshold = 260
 
 </script>
 
@@ -201,8 +201,8 @@
       onclick={() => toggleIsDoneTask(data.id)}
     >
       <div class="
-        relative size-4 rounded-full border border-foreground transition-all
-        group-hover/checkbox:border-primary
+        relative size-4 rounded-full border-[1.5px] border-foreground bg-background/50
+        transition-all group-hover/checkbox:border-primary
       ">
         {#if data.isDone}
           <svg
@@ -210,7 +210,7 @@
             height="15"
             class="
               absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 fill-none
-              stroke-foreground stroke-1 text-transparent transition-all
+              stroke-foreground stroke-[1.5px] text-transparent transition-all
               group-hover/checkbox:stroke-primary
             "
             role="img"
@@ -284,15 +284,15 @@
 
 <svelte:window bind:scrollY></svelte:window>
 
-<div class="relative *:px-4">
+<div class="relative">
   <header
     class="
-      sticky top-0 z-10 border-b bg-background backdrop-blur
-      [border-image-source:radial-gradient(var(--border),transparent)]
+      sticky top-0 z-10 bg-background pe-2 ps-2
+      shadow-[0px_1px_0px_hsl(var(--border)_/_var(--drop-shadow-opacity))] backdrop-blur
     "
     style:--tw-bg-opacity={Math.min(1, scrollY / scrollThreshold) * 0.4}
     style:--tw-backdrop-blur="blur({Math.min(1, scrollY / scrollThreshold) * 8}px)"
-    style:--tw-border-opacity={Math.min(1, scrollY / scrollThreshold) * 0.6}
+    style:--drop-shadow-opacity={Math.min(1, scrollY / scrollThreshold) * 0.8}
   >
     <div class="container flex items-center gap-4 py-2">
       <button
@@ -333,26 +333,6 @@
           <DropdownMenu.Separator />
           <DropdownMenu.Group>
             <DropdownMenu.Item
-              disabled={!$tasks.find(task => !task.isDone && task.isArchived)}
-              onclick={() =>
-                $tasks = $tasks.map(task =>
-                  (!task.isDone && task.isArchived) ? { ...task, isArchived: false } : task,
-                )}
-            >
-              <Icon icon="fluent:mail-inbox-16-regular" />
-              {$LL.actions.restoreAllPendingTasks()}
-            </DropdownMenu.Item>
-            <DropdownMenu.Item
-              disabled={!$tasks.find(task => task.isArchived)}
-              onclick={() => $tasks = $tasks.filter(task => !task.isArchived)}
-            >
-              <Icon icon="fluent:mail-inbox-dismiss-16-regular" />
-              {$LL.actions.deleteAllArchived()}
-            </DropdownMenu.Item>
-          </DropdownMenu.Group>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Group>
-            <DropdownMenu.Item
               onclick={() => $tasks = []}
               class="
                 text-destructive data-[highlighted]:bg-destructive
@@ -375,7 +355,9 @@
               </DropdownMenu.SubTrigger>
               <DropdownMenu.SubContent>
                 {#each locales as locale}
-                  <DropdownMenu.Item onclick={() => setLocale(locale)}>{new Intl.DisplayNames([locale], { type: 'language' }).of(locale)}</DropdownMenu.Item>
+                  <DropdownMenu.Item onclick={() => setLocale(locale)}>
+                    {new Intl.DisplayNames([locale], { type: 'language' }).of(locale)}
+                  </DropdownMenu.Item>
                 {/each}
               </DropdownMenu.SubContent>
 
@@ -402,9 +384,7 @@
         <Icon icon="fluent:square-add-16-regular" />
         <span class="hidden sm:block">{$LL.actions.newTask()}</span>
       </Button>
-
     </div>
-
   </header>
 
   <section class="container mb-16 mt-4 space-y-4">
@@ -447,6 +427,17 @@
           "
         />
         <section class="flex flex-col gap-1">
+          <nav class="flex justify-end px-4 py-2">
+            <Button
+              size="sm"
+              variant="secondary"
+              disabled={!$tasks.find(task => task.isArchived)}
+              onclick={() => $tasks = $tasks.filter(task => !task.isArchived)}
+            >
+              <Icon icon="fluent:mail-inbox-dismiss-16-regular" />
+              <span class="hidden sm:block">{$LL.actions.clearArchived()}</span>
+            </Button>
+          </nav>
           {#each $tasks.filter(x => x.isArchived) as task (task.id)}
             <div
               in:receive={{ key: task.id }}
