@@ -307,8 +307,6 @@
 
 <svelte:window bind:scrollY></svelte:window>
 
-<!--  -->
-
 <AlertDialog.Root bind:open={deleteAllAlertDialogOpen}>
   <AlertDialog.Content>
     <AlertDialog.Header>
@@ -380,13 +378,7 @@
           </DropdownMenu.Group>
           <DropdownMenu.Separator />
           <DropdownMenu.Group>
-            <DropdownMenu.Item
-              onclick={() => deleteAllAlertDialogOpen = true}
-              class="
-                text-destructive data-[highlighted]:bg-destructive
-                data-[highlighted]:text-destructive-foreground
-              "
-            >
+            <DropdownMenu.Item onclick={() => deleteAllAlertDialogOpen = true}>
               <Icon icon="fluent:dismiss-square-multiple-16-regular" />
               {$LL.actions.deleteAll()}
             </DropdownMenu.Item>
