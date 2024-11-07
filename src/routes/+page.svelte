@@ -378,7 +378,7 @@
           </DropdownMenu.Group>
           <DropdownMenu.Separator />
           <DropdownMenu.Group>
-            <DropdownMenu.Item onclick={() => deleteAllAlertDialogOpen = true}>
+            <DropdownMenu.Item disabled={$tasks.length === 0} onclick={() => deleteAllAlertDialogOpen = true}>
               <Icon icon="fluent:dismiss-square-multiple-16-regular" />
               {$LL.actions.deleteAll()}
             </DropdownMenu.Item>
