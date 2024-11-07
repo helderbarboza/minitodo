@@ -55,7 +55,7 @@
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu'
   import { Label } from '$lib/components/ui/label'
   import { Switch } from '$lib/components/ui/switch'
-  import LL, { setLocale } from '$lib/i18n/i18n-svelte'
+  import LL, { locale, setLocale } from '$lib/i18n/i18n-svelte'
   import { locales } from '$lib/i18n/i18n-util'
   import { cn } from '$lib/utils'
   import Icon from '@iconify/svelte'
@@ -338,7 +338,7 @@
             </Button>
           {/snippet}
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content preventScroll={false}>
+        <DropdownMenu.Content preventScroll={false} align="start">
           <DropdownMenu.Group>
             <DropdownMenu.Item
               disabled={$tasks.filter(task => task.isDone && !task.isArchived).length === 0}
@@ -374,11 +374,16 @@
                 {$LL.language()}
               </DropdownMenu.SubTrigger>
               <DropdownMenu.SubContent>
-                {#each locales as locale}
-                  <DropdownMenu.Item onclick={() => setLocale(locale)}>
-                    {new Intl.DisplayNames([locale], { type: 'language' }).of(locale)}
-                  </DropdownMenu.Item>
-                {/each}
+                <DropdownMenu.RadioGroup bind:value={$locale}>
+                  {#each locales as locale}
+                    <DropdownMenu.RadioItem
+                      value={locale}
+                      onclick={() => setLocale(locale)}
+                    >
+                      {new Intl.DisplayNames([locale], { type: 'language' }).of(locale)}
+                    </DropdownMenu.RadioItem>
+                  {/each}
+                </DropdownMenu.RadioGroup>
               </DropdownMenu.SubContent>
 
             </DropdownMenu.Sub>
