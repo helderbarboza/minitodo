@@ -76,14 +76,21 @@ type RootTranslation = {
 			 */
 			title: string
 			/**
-			 * T​h​i​s​ ​a​c​t​i​o​n​ ​c​a​n​n​o​t​ ​b​e​ ​u​n​d​o​n​e​.​ ​T​h​i​s​ ​w​i​l​l​ ​d​e​l​e​t​e​ ​a​l​l​ ​t​a​s​k​s​,​ ​e​v​e​n​ ​a​r​c​h​i​v​e​d​ ​o​n​e​s​.
+			 * T​h​i​s​ ​a​c​t​i​o​n​ ​c​a​n​n​o​t​ ​b​e​ ​u​n​d​o​n​e​.​ ​T​h​i​s​ ​w​i​l​l​ ​d​e​l​e​t​e​ ​a​l​l​ ​{​c​o​u​n​t​}​ ​t​a​s​k​s​,​ ​e​v​e​n​ ​a​r​c​h​i​v​e​d​ ​o​n​e​s​.
+			 * @param {number} count
 			 */
-			description: string
+			description: RequiredParams<'count'>
 			/**
 			 * Y​e​s​,​ ​d​e​l​e​t​e​ ​a​l​l
 			 */
 			confirm: string
 		}
+	}
+	toasts: {
+		/**
+		 * T​a​s​k​s​ ​d​e​l​e​t​e​d​!
+		 */
+		deleteAll: string
 	}
 	emptyState: {
 		/**
@@ -269,14 +276,20 @@ export type TranslationFunctions = {
 			 */
 			title: () => LocalizedString
 			/**
-			 * This action cannot be undone. This will delete all tasks, even archived ones.
+			 * This action cannot be undone. This will delete all {count} tasks, even archived ones.
 			 */
-			description: () => LocalizedString
+			description: (arg: { count: number }) => LocalizedString
 			/**
 			 * Yes, delete all
 			 */
 			confirm: () => LocalizedString
 		}
+	}
+	toasts: {
+		/**
+		 * Tasks deleted!
+		 */
+		deleteAll: () => LocalizedString
 	}
 	emptyState: {
 		/**

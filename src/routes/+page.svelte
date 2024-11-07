@@ -65,6 +65,7 @@
   import { flip } from 'svelte/animate'
   import { quadIn, quadInOut } from 'svelte/easing'
   import { crossfade, draw, fade, fly } from 'svelte/transition'
+  import { toast } from 'svelte-sonner'
 
   let pendingAndUnarchivedCount: number
   let hiddenDoneCount: number
@@ -140,7 +141,9 @@
   const scrollThreshold = 260
 
   let randomNumberForPlaceholder = Math.random()
-  setInterval(() => { randomNumberForPlaceholder = Math.random() }, 15_000)
+  setInterval(() => {
+    randomNumberForPlaceholder = Math.random()
+  }, 15_000)
   $: placeholderKey
     = Math.floor(Object.keys($LL.taskDescriptionPlaceholder).length * randomNumberForPlaceholder).toString() as keyof typeof $LL.taskDescriptionPlaceholder
 
@@ -312,7 +315,7 @@
     <AlertDialog.Header>
       <AlertDialog.Title>{$LL.dialogs.deleteAll.title()}</AlertDialog.Title>
       <AlertDialog.Description>
-        {$LL.dialogs.deleteAll.description()}
+        {$LL.dialogs.deleteAll.description({ count: $tasks.length })}
       </AlertDialog.Description>
     </AlertDialog.Header>
     <AlertDialog.Footer>
@@ -322,6 +325,7 @@
         onclick={() => {
           $tasks = []
           deleteAllAlertDialogOpen = false
+          toast.success($LL.toasts.deleteAll())
         }}
       >
         {$LL.dialogs.deleteAll.confirm()}

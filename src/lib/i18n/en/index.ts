@@ -19,9 +19,12 @@ const en = {
   dialogs: {
     deleteAll: {
       title: 'Are you sure?',
-      description: 'This action cannot be undone. This will delete all tasks, even archived ones.',
+      description: 'This action cannot be undone. This will delete all {count:number} tasks, even archived ones.',
       confirm: 'Yes, delete all',
     },
+  },
+  toasts: {
+    deleteAll: 'Tasks deleted!',
   },
   emptyState: [
     'Your list is clear, enjoy your day!',

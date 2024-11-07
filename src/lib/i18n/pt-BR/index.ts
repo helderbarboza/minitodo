@@ -19,9 +19,12 @@ const ptbr = {
   dialogs: {
     deleteAll: {
       title: 'Tem certeza?',
-      description: 'Esta ação não pode ser desfeita. Isto irá apagar todas as tarefas, até mesmo as arquivadas.',
+      description: 'Esta ação não pode ser desfeita. Isto irá apagar todas as {count} tarefas, até mesmo as arquivadas.',
       confirm: 'Sim, apagar tudo',
     },
+  },
+  toasts: {
+    deleteAll: 'Tarefas apagadas!',
   },
   emptyState: [
     'Sua lista está limpa, aproveite seu dia!',

@@ -11,7 +11,9 @@ const langParam = 'lang'
 export const load = (async (event) => {
   loadAllLocales()
   const newLocale = detectLocale(() => [localStorage.getItem(langParam) ?? ''])
-  locale.subscribe((value) => { localStorage.setItem(langParam, value) })
+  locale.subscribe((value) => {
+    localStorage.setItem(langParam, value)
+  })
   setLocale(newLocale)
   return event.data
 }) satisfies LayoutLoad
