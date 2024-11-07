@@ -74,6 +74,7 @@
   }
 
   let newInputEl: HTMLInputElement
+  let newInputValue: string = ''
 
   const nextId: Writable<symbol> = writable(Symbol(0))
   nextId.subscribe(() => newInputEl && newInputEl.focus())
@@ -137,6 +138,11 @@
   let scrollY: number
   const scrollThreshold = 260
 
+  let randomNumberForPlaceholder = Math.random()
+  setInterval(() => { randomNumberForPlaceholder = Math.random() }, 15_000)
+  $: placeholderKey
+    = Math.floor(Object.keys($LL.taskDescriptionPlaceholder).length * randomNumberForPlaceholder).toString() as keyof typeof $LL.taskDescriptionPlaceholder
+
 </script>
 
 <svelte:head>
@@ -153,29 +159,43 @@
       createTask()
     }}
   >
-    <input
-      minlength="1"
-      autofocus={true}
-      bind:this={newInputEl}
-      data-nav
-      placeholder={$LL.taskDescriptionPlaceholder[Math.floor(Object.keys($LL.taskDescriptionPlaceholder).length * Math.random()).toString() as keyof typeof $LL.taskDescriptionPlaceholder]()}
-      class="
-        mb-2 flex h-9 w-full border-b border-dashed border-input bg-background px-3 py-2 text-sm
-        ring-offset-background transition-all disabled:cursor-not-allowed disabled:opacity-50
-        file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:rounded-md
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-        focus-visible:ring-offset-0 placeholder:text-muted-foreground
-      "
-      onblur={(e) => {
-        if (e.currentTarget.value.length) {
-          newFormEl.requestSubmit()
-        }
-        else {
-          newFormEl.reset()
-        }
-      }}
-      onkeyup={(e) => { e.code === 'Escape' ? newFormEl.reset() : handleArrowNavigation(e) }}
-    />
+    <div class="relative">
+      <input
+        minlength="1"
+        autofocus={true}
+        bind:this={newInputEl}
+        bind:value={newInputValue}
+        data-nav
+        class="
+          mb-2 flex h-9 w-full border-b border-dashed border-input bg-background px-3 py-2 text-sm
+          ring-offset-background transition-all disabled:cursor-not-allowed disabled:opacity-50
+          file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:rounded-md
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+          focus-visible:ring-offset-0 placeholder:italic placeholder:text-muted-foreground
+        "
+        onblur={(e) => {
+          if (e.currentTarget.value.length) {
+            newFormEl.requestSubmit()
+          }
+          else {
+            newFormEl.reset()
+          }
+        }}
+        onkeyup={(e) => { e.code === 'Escape' ? newFormEl.reset() : handleArrowNavigation(e) }}
+      />
+      {#if newInputValue?.length === 0}
+        {#key placeholderKey}
+          <span
+            aria-hidden
+            class="
+              pointer-events-none absolute left-3 top-2 select-none text-sm italic
+              text-muted-foreground
+            "
+            transition:fade
+          >&quot;{$LL.taskDescriptionPlaceholder[placeholderKey]()}&quot;</span>
+        {/key}
+      {/if}
+    </div>
   </form>
 
 {/snippet}
@@ -388,8 +408,8 @@
   </header>
 
   <section class="container mb-16 mt-4 space-y-4">
+    {@render addTaskInput()}
     <section class="flex flex-col p-2">
-      {@render addTaskInput()}
       {#each $tasks.filter(x => !x.isArchived && !(x.isDone && !showDone)) as task (task.id)}
         <div
           in:receive={{ key: task.id }}
@@ -426,7 +446,7 @@
             hover:underline
           "
         />
-        <section class="flex flex-col gap-1">
+        <section class="flex flex-col">
           <nav class="flex justify-end px-4 py-2">
             <Button
               size="sm"
