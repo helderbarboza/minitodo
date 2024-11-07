@@ -187,7 +187,15 @@
             newFormEl.reset()
           }
         }}
-        onkeyup={(e) => { e.code === 'Escape' ? newFormEl.reset() : handleArrowNavigation(e) }}
+        onkeyup={(e) => {
+          if (e.code === 'Escape') {
+            newFormEl.reset()
+            newInputEl.blur()
+          }
+          else {
+            handleArrowNavigation(e)
+          }
+        }}
       />
       {#if newInputValue?.length === 0}
         {#key placeholderKey}
