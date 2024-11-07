@@ -50,6 +50,7 @@
 
 <script lang="ts">
   import type { Writable } from 'svelte/store'
+  import * as AlertDialog from '$lib/components/ui/alert-dialog'
   import { Badge } from '$lib/components/ui/badge'
   import { Button, buttonVariants } from '$lib/components/ui/button'
   import * as DropdownMenu from '$lib/components/ui/dropdown-menu'
@@ -142,6 +143,8 @@
   setInterval(() => { randomNumberForPlaceholder = Math.random() }, 15_000)
   $: placeholderKey
     = Math.floor(Object.keys($LL.taskDescriptionPlaceholder).length * randomNumberForPlaceholder).toString() as keyof typeof $LL.taskDescriptionPlaceholder
+
+  let deleteAllAlertDialogOpen = false
 
 </script>
 
@@ -304,6 +307,31 @@
 
 <svelte:window bind:scrollY></svelte:window>
 
+<!--  -->
+
+<AlertDialog.Root bind:open={deleteAllAlertDialogOpen}>
+  <AlertDialog.Content>
+    <AlertDialog.Header>
+      <AlertDialog.Title>{$LL.dialogs.deleteAll.title()}</AlertDialog.Title>
+      <AlertDialog.Description>
+        {$LL.dialogs.deleteAll.description()}
+      </AlertDialog.Description>
+    </AlertDialog.Header>
+    <AlertDialog.Footer>
+      <AlertDialog.Cancel>{$LL.actions.cancel()}</AlertDialog.Cancel>
+      <AlertDialog.Action
+        class={buttonVariants({ variant: 'destructive' })}
+        onclick={() => {
+          $tasks = []
+          deleteAllAlertDialogOpen = false
+        }}
+      >
+        {$LL.dialogs.deleteAll.confirm()}
+      </AlertDialog.Action>
+    </AlertDialog.Footer>
+  </AlertDialog.Content>
+</AlertDialog.Root>
+
 <div class="relative">
   <header
     class="
@@ -353,7 +381,7 @@
           <DropdownMenu.Separator />
           <DropdownMenu.Group>
             <DropdownMenu.Item
-              onclick={() => $tasks = []}
+              onclick={() => deleteAllAlertDialogOpen = true}
               class="
                 text-destructive data-[highlighted]:bg-destructive
                 data-[highlighted]:text-destructive-foreground

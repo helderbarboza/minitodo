@@ -6,6 +6,7 @@ const en = {
   mode: 'Mode light/dark',
   actions: {
     delete: 'Delete',
+    cancel: 'Cancel',
     archive: 'Archive',
     unarchive: 'Unarchive',
     deleteAll: 'Delete all',
@@ -14,6 +15,13 @@ const en = {
     newTask: 'New task',
     showArchived: 'Show archived',
     hideArchived: 'Hide archived',
+  },
+  dialogs: {
+    deleteAll: {
+      title: 'Are you sure?',
+      description: 'This action cannot be undone. This will delete all tasks, even archived ones.',
+      confirm: 'Yes, delete all',
+    },
   },
   emptyState: [
     'Your list is clear, enjoy your day!',

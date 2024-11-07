@@ -6,6 +6,7 @@ const ptbr = {
   mode: 'Modo claro/escuro',
   actions: {
     delete: 'Apagar',
+    cancel: 'Cancelar',
     archive: 'Arquivar',
     unarchive: 'Desarquivar',
     deleteAll: 'Apagar tudo',
@@ -14,6 +15,13 @@ const ptbr = {
     newTask: 'Nova tarefa',
     showArchived: 'Mostrar arquivados',
     hideArchived: 'Ocultar arquivados',
+  },
+  dialogs: {
+    deleteAll: {
+      title: 'Tem certeza?',
+      description: 'Esta ação não pode ser desfeita. Isto irá apagar todas as tarefas, até mesmo as arquivadas.',
+      confirm: 'Sim, apagar tudo',
+    },
   },
   emptyState: [
     'Sua lista está limpa, aproveite seu dia!',

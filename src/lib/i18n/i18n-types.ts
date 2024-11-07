@@ -33,6 +33,10 @@ type RootTranslation = {
 		 */
 		'delete': string
 		/**
+		 * C​a​n​c​e​l
+		 */
+		cancel: string
+		/**
 		 * A​r​c​h​i​v​e
 		 */
 		archive: string
@@ -64,6 +68,22 @@ type RootTranslation = {
 		 * H​i​d​e​ ​a​r​c​h​i​v​e​d
 		 */
 		hideArchived: string
+	}
+	dialogs: {
+		deleteAll: {
+			/**
+			 * A​r​e​ ​y​o​u​ ​s​u​r​e​?
+			 */
+			title: string
+			/**
+			 * T​h​i​s​ ​a​c​t​i​o​n​ ​c​a​n​n​o​t​ ​b​e​ ​u​n​d​o​n​e​.​ ​T​h​i​s​ ​w​i​l​l​ ​d​e​l​e​t​e​ ​a​l​l​ ​t​a​s​k​s​,​ ​e​v​e​n​ ​a​r​c​h​i​v​e​d​ ​o​n​e​s​.
+			 */
+			description: string
+			/**
+			 * Y​e​s​,​ ​d​e​l​e​t​e​ ​a​l​l
+			 */
+			confirm: string
+		}
 	}
 	emptyState: {
 		/**
@@ -206,6 +226,10 @@ export type TranslationFunctions = {
 		 */
 		'delete': () => LocalizedString
 		/**
+		 * Cancel
+		 */
+		cancel: () => LocalizedString
+		/**
 		 * Archive
 		 */
 		archive: () => LocalizedString
@@ -237,6 +261,22 @@ export type TranslationFunctions = {
 		 * Hide archived
 		 */
 		hideArchived: () => LocalizedString
+	}
+	dialogs: {
+		deleteAll: {
+			/**
+			 * Are you sure?
+			 */
+			title: () => LocalizedString
+			/**
+			 * This action cannot be undone. This will delete all tasks, even archived ones.
+			 */
+			description: () => LocalizedString
+			/**
+			 * Yes, delete all
+			 */
+			confirm: () => LocalizedString
+		}
 	}
 	emptyState: {
 		/**
