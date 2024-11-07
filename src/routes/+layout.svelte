@@ -8,14 +8,18 @@
 
 <ModeWatcher />
 
-<main class="select-none">
+<main>
   {@render children()}
 </main>
 
 <style>
   :global(*) {
-    scrollbar-gutter: stable;
+    user-select: none;
     scrollbar-width: thin;
     scrollbar-color: hsl(var(--accent)) hsl(var(--background));
+  }
+
+  :global(html) {
+    scrollbar-gutter: stable;
   }
 </style>
