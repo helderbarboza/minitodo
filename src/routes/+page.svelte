@@ -40,8 +40,8 @@
     const storedTasks = localStorage.getItem('tasks')
 
     return storedTasks
-      ? (JSON.parse(storedTasks) as Task[])
-        .map(task => ({ ...task, id: Symbol(task.name) }))
+      ? (JSON.parse(storedTasks))
+        .map((task: Task) => ({ ...task, id: Symbol(task.name) }))
       : exampleTasks
   })())
 
