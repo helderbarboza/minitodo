@@ -175,9 +175,8 @@
         class="
           mb-2 flex h-9 w-full border-b border-dashed border-input bg-background px-3 py-2 text-sm
           ring-offset-background transition-all disabled:cursor-not-allowed disabled:opacity-50
-          file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:rounded-md
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-          focus-visible:ring-offset-0 placeholder:italic placeholder:text-muted-foreground
+          focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2
+          focus-visible:ring-ring focus-visible:ring-offset-0
         "
         onblur={(e) => {
           if (e.currentTarget.value.length) {
@@ -205,7 +204,8 @@
               pointer-events-none absolute left-3 top-2 select-none text-sm italic
               text-muted-foreground
             "
-            transition:fade
+            in:fade={{ delay: 500 }}
+            out:fade
           >&quot;{$LL.taskDescriptionPlaceholder[placeholderKey]()}&quot;</span>
         {/key}
       {/if}
