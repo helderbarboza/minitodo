@@ -445,6 +445,7 @@
         <span>{$LL.nDoneTasks({ count: hiddenDoneCount })}</span>
       </Label>
       <Button
+        title={$LL.actions.newTask()}
         onclick={() => {
           newInputEl.focus()
           newInputEl.scroll({ behavior: 'smooth' })
