@@ -226,10 +226,15 @@
 {#snippet taskItem(task: Task)}
   <div
     tabindex={0}
-    class={cn(buttonVariants({ class: `
-  flex items-center justify-start gap-2 transition-all 
-  data-[checked=true]:opacity-40 data-[checked=true]:hover:opacity-100 focus:border-primary z-0 text-base
-`, variant: 'ghost', size: 'default' }))}
+    class={cn(buttonVariants(
+      {
+        class: `flex items-center hover:bg-accent/50 justify-start gap-2 transition-all 
+        data-[checked=true]:opacity-40 data-[checked=true]:hover:opacity-100 focus:border-primary 
+        z-0 text-base`,
+        variant: 'ghost',
+        size: 'default',
+      },
+    ))}
     data-checked={task.isDone}
     data-nav
     onkeyup={(e) => {
