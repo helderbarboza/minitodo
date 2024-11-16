@@ -143,6 +143,7 @@
   let archivedSectionOpen = $state(false)
   let newFormEl: HTMLFormElement
 
+  const inputAttrs: Record<string, any> = { spellcheck: false, minlength: 1, type: 'text' }
 </script>
 
 <svelte:window
@@ -176,7 +177,7 @@
   >
     <div class="relative">
       <input
-        minlength="1"
+        {...inputAttrs}
         bind:this={newInputEl}
         bind:value={newInputValue}
         data-nav
@@ -277,31 +278,57 @@
         {/if}
 
       </div>
-    </button>
-    <div class="relative mr-auto overflow-x-hidden" title={task.name}>
-      <div contenteditable="true" spellcheck="false" class="
-        max-w-full truncate text-nowrap px-1 py-0.5 text-sm focus:text-clip lg:text-base
-      " onblur={e => e.currentTarget.textContent && (task.name = e.currentTarget.textContent)}>{task.name}</div>
-
-      {#if task.isDone}
-        <svg
-          width="10"
-          height="10"
-          viewBox="0 0 10 1"
-          fill="none"
+    <div class="mr-auto w-full overflow-x-hidden" title={task.name}>
+      <div class="relative w-min max-w-full p-0.5">
+        <input
+          {...inputAttrs}
+          value={task.name}
+          style:field-sizing="content"
           class="
-            absolute left-1/2 top-1/2 !h-0.5 !w-[calc(100%+0.5rem)] -translate-x-1/2
-            -translate-y-1/2 stroke-foreground stroke-1
+            peer flex w-full min-w-16 max-w-[-webkit-fill-available] truncate rounded-md
+            bg-transparent px-1 py-0.5 text-sm focus-visible:outline-none focus-visible:ring-1
+            focus-visible:ring-ring focus-visible:invalid:border-destructive/80
+            focus-visible:invalid:ring-destructive lg:text-base
           "
-          preserveAspectRatio="none"
-        >
-          <path
-            in:draw={{ duration: 500, easing: quadInOut }}
-            out:fade={{ duration: 500, easing: quadInOut }}
-            d="M0 0 10 0Z"
-          />
-        </svg>
-      {/if}
+          required
+          onkeydown={(e) => {
+            if (e.key === 'Escape') {
+              e.currentTarget.value = task.name
+              e.currentTarget.blur()
+            }
+
+            if (e.key === 'Enter')
+              e.currentTarget.blur()
+          }}
+          onchange={(e) => {
+            if (e.currentTarget.validity.valid) {
+              task.name = e.currentTarget.value
+            }
+            else {
+              e.currentTarget.value = task.name
+            }
+          }}
+        />
+        {#if task.isDone}
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 10 1"
+            fill="none"
+            class="
+              absolute top-1/2 !h-0.5 !w-full stroke-foreground stroke-1 transition-opacity
+              peer-focus:opacity-0
+            "
+            preserveAspectRatio="none"
+          >
+            <path
+              in:draw={{ duration: 1000, easing: quadIn }}
+              out:fade={{ duration: 500, easing: quadInOut }}
+              d="M0 0 10 0Z"
+            />
+          </svg>
+        {/if}
+      </div>
     </div>
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
