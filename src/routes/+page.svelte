@@ -46,12 +46,10 @@
       : getExampleTasks()
   })())
 
-  const profile = $state((() => {
+  const profile = $state<Profile>((() => {
     const storedProfile = localStorage.getItem(localStorageProfileKey)
 
-    return (storedProfile
-      ? JSON.parse(storedProfile) satisfies Profile
-      : { showDone: true } satisfies Profile) as Profile
+    return (storedProfile ? JSON.parse(storedProfile) : { showDone: true })
   })())
 
   $effect(() => {
