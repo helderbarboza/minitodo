@@ -68,6 +68,14 @@ type RootTranslation = {
 		 * H​i​d​e​ ​a​r​c​h​i​v​e​d
 		 */
 		hideArchived: string
+		/**
+		 * M​a​r​k​ ​a​s​ ​d​o​n​e
+		 */
+		markAsDone: string
+		/**
+		 * M​a​r​k​ ​a​s​ ​p​e​n​d​i​n​g
+		 */
+		markAsPending: string
 	}
 	dialogs: {
 		deleteAll: {
@@ -482,6 +490,14 @@ export type TranslationFunctions = {
 		 * Hide archived
 		 */
 		hideArchived: () => LocalizedString
+		/**
+		 * Mark as done
+		 */
+		markAsDone: () => LocalizedString
+		/**
+		 * Mark as pending
+		 */
+		markAsPending: () => LocalizedString
 	}
 	dialogs: {
 		deleteAll: {

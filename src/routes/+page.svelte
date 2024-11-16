@@ -242,22 +242,25 @@
       //   deleteTask(task.id)
     }}
   >
-    <button
-      class="inline-flex shrink-0 items-baseline p-1 group/checkbox"
+    <Button
       onclick={() => toggleIsDoneTask(task.id)}
+      size="icon"
+      variant="link"
+      class="shrink-0 group/checkbox size-8"
+      title={task.isDone ? $LL.actions.markAsPending() : $LL.actions.markAsDone()}
     >
       <div class="
         relative size-4 rounded-full border-[1.5px] border-foreground bg-background/50
-        transition-all group-hover/checkbox:border-primary
+        stroke-foreground stroke-[1.5px] text-transparent group-hover/checkbox:border-primary
+        group-hover/checkbox:stroke-primary
       ">
         {#if task.isDone}
           <svg
             width="15"
             height="15"
             class="
-              absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 fill-none
-              stroke-foreground stroke-[1.5px] text-transparent transition-all
-              group-hover/checkbox:stroke-primary
+              absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 stroke-inherit
+              text-inherit transition-all
             "
             role="img"
             aria-label="check"
@@ -278,6 +281,7 @@
         {/if}
 
       </div>
+    </Button>
     <div class="mr-auto w-full overflow-x-hidden" title={task.name}>
       <div class="relative w-min max-w-full p-0.5">
         <input

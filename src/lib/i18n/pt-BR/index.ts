@@ -15,6 +15,8 @@ const ptbr = {
     newTask: 'Nova tarefa',
     showArchived: 'Mostrar arquivados',
     hideArchived: 'Ocultar arquivados',
+    markAsDone: 'Marcar como concluída',
+    markAsPending: 'Marcar como pendente',
   },
   dialogs: {
     deleteAll: {

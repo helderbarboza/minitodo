@@ -15,6 +15,8 @@ const en = {
     newTask: 'New task',
     showArchived: 'Show archived',
     hideArchived: 'Hide archived',
+    markAsDone: 'Mark as done',
+    markAsPending: 'Mark as pending',
   },
   dialogs: {
     deleteAll: {
