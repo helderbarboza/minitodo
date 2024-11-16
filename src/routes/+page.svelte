@@ -381,7 +381,7 @@
         {/if}
       </button>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
+        <DropdownMenu.Trigger class="mr-auto">
           {#snippet child({ props })}
             <Button {...props} size="icon" variant="ghost">
               <Icon icon="fluent:more-vertical-16-regular" />
@@ -439,8 +439,8 @@
           </DropdownMenu.Group>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-      <div class="mx-auto"></div>
-      <Label for="show-done" class="flex items-center gap-x-2 px-2.5">
+
+      <Label for="show-done" class="line-clamp-2 flex w-min items-center gap-x-2 px-2.5 sm:w-auto">
         <Switch bind:checked={profile.showDone} id="show-done" />
         <span>{$LL.nDoneTasks({ count: hiddenDoneCount })}</span>
       </Label>
