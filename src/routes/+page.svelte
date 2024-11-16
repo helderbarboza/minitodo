@@ -476,7 +476,10 @@
     {#if tasks.find(t => t.isArchived)}
       <details
         bind:open={archivedSectionOpen}
-        class="rounded-md p-2 transition-all open:bg-card"
+        class="
+          group rounded-md p-2 opacity-50 transition-all hover:opacity-100 open:bg-card
+          open:opacity-100
+        "
         ontoggle={(e) => {
           e.currentTarget.open && window.scroll({
             top: e.currentTarget.offsetTop,
@@ -485,21 +488,21 @@
         }}
       >
         <summary
-          id="archived-section"
           data-nav
           tabindex={0}
           onkeyup={handleArrowNavigation}
-          style:--text="'{archivedSectionOpen ? $LL.actions.hideArchived() : $LL.actions.showArchived()}'"
-          class="
-            mb-1 select-none py-2 text-center text-xs text-muted-foreground underline-offset-2
-            hover:underline
-          "
-        />
+          class={cn(buttonVariants({ variant: 'ghost', class: 'w-full justify-between', size: 'sm' }))}
+        >
+
+          <span>{archivedSectionOpen ? $LL.actions.hideArchived() : $LL.actions.showArchived()}</span>
+          <Icon icon="fluent:chevron-down-16-regular" class="transition-all group-open:rotate-180" />
+        </summary>
         <section class="flex flex-col">
           <nav class="flex justify-end px-4 py-2">
             <Button
               size="sm"
-              variant="ghost"
+              title={$LL.actions.clearArchived()}
+              variant="outline"
               disabled={!tasks.find(task => task.isArchived)}
               onclick={() => tasks = tasks.filter(task => !task.isArchived)}
             >
@@ -521,9 +524,3 @@
     {/if}
   </section>
 </div>
-
-<style>
-  #archived-section::marker {
-    content: var(--text);
-  }
-</style>
