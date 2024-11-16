@@ -456,7 +456,7 @@
     </div>
   </header>
 
-  <section class="container mb-16 mt-4 space-y-4">
+  <section class="container mb-6 mt-4 space-y-4">
     {@render addTaskInput()}
     <section class="flex flex-col p-2">
       {#each tasks.filter(x => !x.isArchived && !(x.isDone && !profile.showDone)) as task (task.id)}
@@ -468,7 +468,9 @@
           {@render taskItem(task)}
         </div>
       {:else}
-        <div class="px-8 py-[calc(50vh-130px)] text-center text-lg font-normal" in:fade>
+        <div class="
+          grid h-[calc(100vh-230px)] place-items-center p-8 text-center text-lg font-normal
+        " in:fade>
           {$LL.emptyState[Math.floor(Object.keys($LL.emptyState).length * Math.random()).toString() as keyof typeof $LL.emptyState]()}
         </div>
       {/each}
