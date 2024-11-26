@@ -406,12 +406,22 @@
       >
         <h1 class="text-xl leading-none">todo</h1>
         {#if pendingAndUnarchivedCount}
-          <Badge class="
-            pointer-events-none absolute -end-3 -top-2 inline-flex size-4 items-center
-            justify-center rounded-full p-0 text-[0.625rem] leading-none
-          ">
-            {pendingAndUnarchivedCount}
-          </Badge>
+          {@const limit = 9}
+          <div
+            class="absolute right-0 top-0 -translate-y-2 translate-x-3"
+          >
+
+            <Badge
+              class="
+                flex h-4 w-4 items-center justify-center truncate rounded-full p-0.5 text-[0.625rem]
+                tracking-tighter transition-all hover:bg-primary
+              "
+              title={String(pendingAndUnarchivedCount)}
+            >
+              {pendingAndUnarchivedCount > limit ? `${limit}+` : pendingAndUnarchivedCount}
+            </Badge>
+
+          </div>
         {/if}
       </button>
       <DropdownMenu.Root>
