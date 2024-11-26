@@ -160,7 +160,7 @@
 />
 
 <svelte:head>
-  <title>todo{pendingAndUnarchivedCount ? ` (${pendingAndUnarchivedCount})` : ''}</title>
+  <title>minitodo{pendingAndUnarchivedCount ? ` (${pendingAndUnarchivedCount})` : undefined}</title>
 </svelte:head>
 
 <!-- eslint-disable svelte/valid-compile -->
@@ -209,7 +209,7 @@
             aria-hidden
             class="
               pointer-events-none absolute inset-x-3 top-2 select-none truncate text-sm italic
-              text-muted-foreground lg:top-1.5 lg:text-base
+              text-muted-foreground opacity-50 lg:top-1.5 lg:text-base
             "
             in:fly={{ duration: 1000, x: '-0.5rem', delay: 1000, easing: quadOut }}
             out:fly={{ duration: 1000, x: '0.5rem', easing: quadIn }}
@@ -398,19 +398,20 @@
     style:--tw-backdrop-blur="blur({Math.min(1, scrollRatio) * 8}px)"
     style:--drop-shadow-opacity={Math.min(1, scrollRatio) * 0.8}
   >
-    <div class="container flex items-center gap-4 py-2">
+    <div class="container flex items-center gap-2 py-2">
       <button
         class="relative"
         type="button"
         onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
-        <h1 class="text-xl leading-none">todo</h1>
+        <h1 class="group text-lg leading-none sm:text-xl">
+          <span class="text-accent transition-all group-hover:text-primary">mini</span><span>todo</span>
+        </h1>
         {#if pendingAndUnarchivedCount}
           {@const limit = 9}
           <div
-            class="absolute right-0 top-0 -translate-y-2 translate-x-3"
+            class="absolute right-0 top-0 -translate-y-2 translate-x-2"
           >
-
             <Badge
               class="
                 flex h-4 w-4 items-center justify-center truncate rounded-full p-0.5 text-[0.625rem]
@@ -420,12 +421,11 @@
             >
               {pendingAndUnarchivedCount > limit ? `${limit}+` : pendingAndUnarchivedCount}
             </Badge>
-
           </div>
         {/if}
       </button>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger class="mr-auto">
+        <DropdownMenu.Trigger class="mr-auto shrink-0">
           {#snippet child({ props })}
             <Button {...props} size="icon" variant="ghost">
               <Icon icon="fluent:more-vertical-16-regular" />
@@ -473,20 +473,14 @@
                   {/each}
                 </DropdownMenu.RadioGroup>
               </DropdownMenu.SubContent>
-
             </DropdownMenu.Sub>
-            <DropdownMenu.Separator />
-            <DropdownMenu.Item onclick={() => tasks = getExampleTasks()}>
-              Reset
-            </DropdownMenu.Item>
-
           </DropdownMenu.Group>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
 
-      <Label for="show-done" class="line-clamp-2 flex w-min items-center gap-x-2 px-2.5 sm:w-auto">
+      <Label for="show-done" class="inline-flex items-center gap-x-2 px-2.5">
         <Switch bind:checked={profile.showDone} id="show-done" />
-        <span>{$LL.nDoneTasks({ count: hiddenDoneCount })}</span>
+        <div class="line-clamp-2">{$LL.nDoneTasks({ count: hiddenDoneCount })}</div>
       </Label>
       <Button
         title={$LL.actions.newTask()}
@@ -494,6 +488,19 @@
           newInputEl.focus()
           newInputEl.scroll({ behavior: 'smooth' })
         }}
+        size="icon"
+        class="flex shrink-0 sm:hidden"
+      >
+        <Icon icon="fluent:square-add-16-regular" />
+        <span class="hidden sm:block">{$LL.actions.newTask()}</span>
+      </Button>
+      <Button
+        title={$LL.actions.newTask()}
+        onclick={() => {
+          newInputEl.focus()
+          newInputEl.scroll({ behavior: 'smooth' })
+        }}
+        class="hidden shrink-0 sm:flex"
       >
         <Icon icon="fluent:square-add-16-regular" />
         <span class="hidden sm:block">{$LL.actions.newTask()}</span>
