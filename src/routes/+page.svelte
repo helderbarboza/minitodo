@@ -117,8 +117,12 @@
     }
   }
 
+  function randomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
   const numberGen = function* (size: number) {
-    let index = 0
+    let index = randomInt(0, size)
     while (true) {
       const currentIndex = index
       index = (index + 1) % size
