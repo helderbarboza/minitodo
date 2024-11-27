@@ -180,6 +180,7 @@
     <div class="relative">
       <input
         {...inputAttrs}
+        id="new-task"
         bind:this={newInputEl}
         bind:value={newInputValue}
         data-nav
@@ -293,6 +294,7 @@
       <div class="relative w-min max-w-full p-0.5">
         <input
           {...inputAttrs}
+          id={Math.random().toString(36).substring(2)}
           value={task.name}
           style:field-sizing="content"
           class="
