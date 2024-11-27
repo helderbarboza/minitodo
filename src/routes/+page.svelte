@@ -491,7 +491,7 @@
         size="icon"
         class="flex shrink-0 sm:hidden"
       >
-        <Icon icon="fluent:square-add-16-regular" />
+        <Icon icon="fluent:add-16-regular" />
         <span class="hidden sm:block">{$LL.actions.newTask()}</span>
       </Button>
       <Button
@@ -502,7 +502,7 @@
         }}
         class="hidden shrink-0 sm:flex"
       >
-        <Icon icon="fluent:square-add-16-regular" />
+        <Icon icon="fluent:add-16-regular" />
         <span class="hidden sm:block">{$LL.actions.newTask()}</span>
       </Button>
     </div>
