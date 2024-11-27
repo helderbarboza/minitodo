@@ -404,9 +404,9 @@
     style:--tw-backdrop-blur="blur({Math.min(1, scrollRatio) * 8}px)"
     style:--drop-shadow-opacity={Math.min(1, scrollRatio) * 0.8}
   >
-    <div class="container flex items-center gap-2 py-2">
+    <div class="container flex items-stretch gap-2 py-2">
       <button
-        class="relative"
+        class="relative mr-3"
         type="button"
         onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
@@ -416,12 +416,12 @@
         {#if pendingAndUnarchivedCount}
           {@const limit = 9}
           <div
-            class="absolute right-0 top-0 -translate-y-2 translate-x-2"
+            class="absolute right-0 top-0 translate-x-2.5"
           >
             <Badge
               class="
-                flex h-4 w-4 items-center justify-center truncate rounded-full p-0.5 text-[0.625rem]
-                tracking-tighter transition-all hover:bg-primary
+                flex h-3.5 w-3.5 items-center justify-center truncate rounded-full p-0.5
+                text-[0.625rem] tracking-tighter transition-all hover:bg-primary
               "
               title={String(pendingAndUnarchivedCount)}
             >
@@ -484,10 +484,15 @@
         </DropdownMenu.Content>
       </DropdownMenu.Root>
 
-      <Label for="show-done" class="inline-flex items-center gap-x-2 px-2.5">
-        <Switch bind:checked={profile.showDone} id="show-done" />
-        <div class="line-clamp-2">{$LL.nDoneTasks({ count: hiddenDoneCount })}</div>
+      <Label for="show-done" class="flex items-center gap-x-2 px-2.5">
+        <Switch
+          bind:checked={profile.showDone}
+          id="show-done"
+          class="h-4 w-7 [&_span]:size-3 [&_span]:data-[state=checked]:translate-x-3"
+        />
+        <div class="text-xs text-muted-foreground">{$LL.nDoneTasks({ count: hiddenDoneCount })}</div>
       </Label>
+
       <Button
         title={$LL.actions.newTask()}
         onclick={() => {
@@ -558,7 +563,7 @@
           <Icon icon="fluent:chevron-down-16-regular" class="transition-all group-open:rotate-180" />
         </summary>
         <section class="flex flex-col">
-          <nav class="flex justify-end px-4 py-2">
+          <nav class="mb-2 flex justify-end py-2">
             <Button
               size="sm"
               title={$LL.actions.clearArchived()}
@@ -567,7 +572,7 @@
               onclick={() => tasks = tasks.filter(task => !task.isArchived)}
             >
               <Icon icon="fluent:mail-inbox-dismiss-16-regular" />
-              <span class="hidden sm:block">{$LL.actions.clearArchived()}</span>
+              <span>{$LL.actions.clearArchived()}</span>
             </Button>
           </nav>
           {#each tasks.filter(x => x.isArchived) as task (task.id)}
