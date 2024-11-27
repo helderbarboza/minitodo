@@ -5,6 +5,8 @@ import { loadAllLocales } from '$lib/i18n/i18n-util.sync'
 
 export const ssr = false
 export const csr = true
+export const prerender = true
+export const trailingSlash = 'always'
 
 const langParam = 'lang'
 
