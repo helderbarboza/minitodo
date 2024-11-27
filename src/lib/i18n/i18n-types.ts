@@ -53,7 +53,7 @@ type RootTranslation = {
 		 */
 		clearArchived: string
 		/**
-		 * A​r​c​h​i​v​e​ ​d​o​n​e​ ​t​a​s​k​s
+		 * A​r​c​h​i​v​e​ ​d​o​n​e
 		 */
 		archiveDoneTasks: string
 		/**
@@ -475,7 +475,7 @@ export type TranslationFunctions = {
 		 */
 		clearArchived: () => LocalizedString
 		/**
-		 * Archive done tasks
+		 * Archive done
 		 */
 		archiveDoneTasks: () => LocalizedString
 		/**

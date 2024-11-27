@@ -11,7 +11,7 @@ const en = {
     unarchive: 'Unarchive',
     deleteAll: 'Delete all',
     clearArchived: 'Clear archived',
-    archiveDoneTasks: 'Archive done tasks',
+    archiveDoneTasks: 'Archive done',
     newTask: 'New task',
     showArchived: 'Show archived',
     hideArchived: 'Hide archived',

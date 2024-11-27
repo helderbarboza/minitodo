@@ -228,7 +228,7 @@
       {
         class: `flex items-center hover:bg-accent/50 justify-start gap-2 transition-all 
         data-[checked=true]:opacity-40 data-[checked=true]:hover:opacity-100 focus:border-primary 
-        z-0 text-base`,
+        z-0 text-base px-1`,
         variant: 'ghost',
         size: 'default',
       },
@@ -432,7 +432,7 @@
             </Button>
           {/snippet}
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content preventScroll={false} align="start">
+        <DropdownMenu.Content preventScroll={false}>
           <DropdownMenu.Group>
             <DropdownMenu.Item
               disabled={tasks.filter(task => task.isDone && !task.isArchived).length === 0}

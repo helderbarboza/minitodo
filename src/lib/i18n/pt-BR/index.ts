@@ -11,7 +11,7 @@ const ptbr = {
     unarchive: 'Desarquivar',
     deleteAll: 'Apagar tudo',
     clearArchived: 'Limpar arquivados',
-    archiveDoneTasks: 'Arquivar tarefas concluídas',
+    archiveDoneTasks: 'Arquivar concluídas',
     newTask: 'Nova tarefa',
     showArchived: 'Mostrar arquivados',
     hideArchived: 'Ocultar arquivados',
