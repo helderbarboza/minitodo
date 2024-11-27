@@ -292,10 +292,10 @@
           value={task.name}
           style:field-sizing="content"
           class="
-            peer flex w-full min-w-16 max-w-[-webkit-fill-available] truncate rounded-md
-            bg-transparent px-1 py-0.5 text-sm focus-visible:outline-none focus-visible:ring-1
-            focus-visible:ring-ring focus-visible:invalid:border-destructive/80
-            focus-visible:invalid:ring-destructive lg:text-base
+            peer flex w-full min-w-16 max-w-full truncate rounded-md bg-transparent px-1 py-0.5
+            text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
+            focus-visible:invalid:border-destructive/80 focus-visible:invalid:ring-destructive
+            lg:text-base
           "
           required
           onkeydown={(e) => {
