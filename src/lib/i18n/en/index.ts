@@ -1,7 +1,7 @@
 import type { BaseTranslation } from '../i18n-types'
 
 const en = {
-  nDoneTasks: '{count:number} done tasks',
+  nDoneTasks: '{count:number} done',
   language: 'Language',
   mode: 'Mode light/dark',
   actions: {

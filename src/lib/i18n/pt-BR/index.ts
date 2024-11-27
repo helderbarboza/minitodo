@@ -1,7 +1,7 @@
 import type { Translation } from '../i18n-types'
 
 const ptbr = {
-  nDoneTasks: '{count} tarefas concluídas',
+  nDoneTasks: '{count} concluídas',
   language: 'Idioma',
   mode: 'Modo claro/escuro',
   actions: {

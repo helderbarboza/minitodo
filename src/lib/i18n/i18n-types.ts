@@ -15,7 +15,7 @@ export type Translations = RootTranslation
 
 type RootTranslation = {
 	/**
-	 * {​c​o​u​n​t​}​ ​d​o​n​e​ ​t​a​s​k​s
+	 * {​c​o​u​n​t​}​ ​d​o​n​e
 	 * @param {number} count
 	 */
 	nDoneTasks: RequiredParams<'count'>
@@ -438,7 +438,7 @@ type RootTranslation = {
 
 export type TranslationFunctions = {
 	/**
-	 * {count} done tasks
+	 * {count} done
 	 */
 	nDoneTasks: (arg: { count: number }) => LocalizedString
 	/**
