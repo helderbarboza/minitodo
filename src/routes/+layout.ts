@@ -12,7 +12,7 @@ const langParam = 'lang'
 
 export const load = (async (event) => {
   loadAllLocales()
-  const newLocale = detectLocale(() => [localStorage.getItem(langParam) ?? ''])
+  const newLocale = detectLocale(() => [localStorage.getItem(langParam) ?? navigator.language])
   locale.subscribe((value) => {
     localStorage.setItem(langParam, value)
   })
