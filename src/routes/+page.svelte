@@ -158,7 +158,7 @@
       clearInterval(incrementPlaceholderOffsetInterval)
     }
     else {
-      incrementPlaceholderOffsetInterval = setInterval(incrementPlaceholderOffsetFunction, 30_000)
+      incrementPlaceholderOffsetInterval = setInterval(incrementPlaceholderOffsetFunction, 15_000)
     }
   }}
 />
