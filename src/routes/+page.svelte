@@ -135,7 +135,7 @@
   const incrementPlaceholderOffsetFunction = () => {
     placeholderKey = getNewPlaceholderKey()
   }
-  let incrementPlaceholderOffsetInterval: number
+  let incrementPlaceholderOffsetInterval: NodeJS.Timeout
 
   let deleteAllAlertDialogOpen = $state(false)
   const pendingAndUnarchivedCount = $derived.by(() => tasks.filter(task => !task.isDone && !task.isArchived).length)
