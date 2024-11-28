@@ -22,6 +22,7 @@
     name: string
     isDone: boolean
     isArchived: boolean
+    clientWidth?: number
   }
 
   interface Profile {
@@ -53,7 +54,10 @@
   })())
 
   $effect(() => {
-    localStorage.setItem(localStorageTasksKey, JSON.stringify(tasks))
+    localStorage.setItem(
+      localStorageTasksKey,
+      JSON.stringify(tasks.map(({ isArchived, isDone, name }) => ({ isArchived, isDone, name }))),
+    )
   })
 
   $effect(() => {
@@ -291,16 +295,19 @@
       </div>
     </Button>
     <div class="mr-auto w-full overflow-x-hidden" title={task.name}>
-      <div class="relative w-min max-w-full p-0.5">
+      <div class="relative p-0.5">
+        <!-- This is an invisible element containing the text, so we can obtain its width -->
+        <div class="invisible absolute w-fit max-w-full px-1 text-sm" bind:clientWidth={task.clientWidth}>{task.name}</div>
         <input
           {...inputAttrs}
           id={Math.random().toString(36).substring(2)}
           value={task.name}
+          style:--text-width="{task.clientWidth + 1}px"
           class="
-            peer flex w-full min-w-16 max-w-full truncate rounded-md bg-transparent px-1 py-0.5
-            text-sm [field-sizing:content] focus-visible:outline-none focus-visible:ring-1
-            focus-visible:ring-ring focus-visible:invalid:border-destructive/80
-            focus-visible:invalid:ring-destructive lg:text-base
+            peer flex w-[--text-width] min-w-16 max-w-full truncate rounded-md bg-transparent px-1
+            py-0.5 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
+            focus-visible:invalid:border-destructive/80 focus-visible:invalid:ring-destructive
+            focus:w-full lg:text-base
           "
           required
           onkeydown={(e) => {
