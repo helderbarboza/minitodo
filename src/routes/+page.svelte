@@ -490,7 +490,8 @@
           id="show-done"
           class="h-4 w-7 [&_span]:size-3 [&_span]:data-[state=checked]:translate-x-3"
         />
-        <div class="text-xs text-muted-foreground">{$LL.nDoneTasks({ count: hiddenDoneCount })}</div>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        <div class="line-clamp-2 text-xs text-muted-foreground">{@html $LL.nDoneTasks({ count: hiddenDoneCount })}</div>
       </Label>
 
       <Button
