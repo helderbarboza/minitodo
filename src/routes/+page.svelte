@@ -231,6 +231,7 @@
 {/snippet}
 
 {#snippet taskItem(task: Task)}
+  {@const id = Math.random().toString(36).substring(2)}
   <div
     tabindex={0}
     class={cn(buttonVariants(
@@ -300,7 +301,7 @@
         <div class="invisible absolute w-fit max-w-full px-1 text-sm" bind:clientWidth={task.clientWidth}>{task.name}</div>
         <input
           {...inputAttrs}
-          id={Math.random().toString(36).substring(2)}
+          {id}
           value={task.name}
           style:--text-width="{task.clientWidth + 1}px"
           class="
