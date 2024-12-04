@@ -16,7 +16,7 @@
   <meta name="theme-color" content="#6e4d9c" />
   <link
     rel="canonical"
-    href={`https://helderbarboza.github.io/minitodo/${$page.url.pathname}`}
+    href={`https://helderbarboza.github.io${$page.url.pathname}`}
   />
 
   <meta property="og:type" content="website">
