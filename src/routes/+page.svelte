@@ -144,7 +144,6 @@
   let deleteAllAlertDialogOpen = $state(false)
   const pendingAndUnarchivedCount = $derived.by(() => tasks.filter(task => !task.isDone && !task.isArchived).length)
   const doneAndUnarchivedCount = $derived.by(() => tasks.filter(task => task.isDone && !task.isArchived).length)
-  const hiddenDoneCount = $derived.by(() => tasks.filter(task => !task.isArchived && task.isDone).length)
   let scrollY: number = $state(0)
   const scrollRatio = $derived(scrollY / 260)
   let archivedSectionOpen = $state(false)
@@ -514,7 +513,7 @@
           class="h-4 w-7 [&_span]:size-3 [&_span]:data-[state=checked]:translate-x-3"
         />
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-        <div class="line-clamp-2 text-xs text-muted-foreground">{@html $LL.nDoneTasks({ count: hiddenDoneCount })}</div>
+        <div class="line-clamp-2 text-xs text-muted-foreground">{@html $LL.nDoneTasks({ count: doneAndUnarchivedCount })}</div>
       </Label>
 
       <Button
