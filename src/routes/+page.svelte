@@ -143,6 +143,7 @@
 
   let deleteAllAlertDialogOpen = $state(false)
   const pendingAndUnarchivedCount = $derived.by(() => tasks.filter(task => !task.isDone && !task.isArchived).length)
+  const doneAndUnarchivedCount = $derived.by(() => tasks.filter(task => task.isDone && !task.isArchived).length)
   const hiddenDoneCount = $derived.by(() => tasks.filter(task => !task.isArchived && task.isDone).length)
   let scrollY: number = $state(0)
   const scrollRatio = $derived(scrollY / 260)
@@ -458,9 +459,15 @@
           <DropdownMenu.Group>
             <DropdownMenu.Item
               disabled={tasks.filter(task => task.isDone && !task.isArchived).length === 0}
-              onclick={() =>
+              onclick={() => {
+                const before = doneAndUnarchivedCount
                 tasks = tasks.map(task =>
-                  (task.isDone && !task.isArchived) ? { ...task, isArchived: true } : task)}
+                  (task.isDone && !task.isArchived) ? { ...task, isArchived: true } : task,
+                )
+                const count = before - doneAndUnarchivedCount
+
+                toast.success($LL.toasts.nDoneTasksMovedToArchive({ count }))
+              }}
             >
               <Icon icon="fluent:mail-inbox-checkmark-16-regular" />
               {$LL.actions.archiveDoneTasks()}

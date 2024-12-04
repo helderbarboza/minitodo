@@ -99,6 +99,11 @@ type RootTranslation = {
 		 * T​a​s​k​s​ ​d​e​l​e​t​e​d​!
 		 */
 		deleteAll: string
+		/**
+		 * {​c​o​u​n​t​}​ ​c​o​m​p​l​e​t​e​d​ ​t​a​s​k​s​ ​h​a​v​e​ ​b​e​e​n​ ​m​o​v​e​d​ ​t​o​ ​t​h​e​ ​a​r​c​h​i​v​e​.
+		 * @param {number} count
+		 */
+		nDoneTasksMovedToArchive: RequiredParams<'count'>
 	}
 	emptyState: {
 		/**
@@ -520,6 +525,10 @@ export type TranslationFunctions = {
 		 * Tasks deleted!
 		 */
 		deleteAll: () => LocalizedString
+		/**
+		 * {count} completed tasks have been moved to the archive.
+		 */
+		nDoneTasksMovedToArchive: (arg: { count: number }) => LocalizedString
 	}
 	emptyState: {
 		/**

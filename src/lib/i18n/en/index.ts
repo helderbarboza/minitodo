@@ -27,6 +27,7 @@ const en = {
   },
   toasts: {
     deleteAll: 'Tasks deleted!',
+    nDoneTasksMovedToArchive: '{count:number} completed tasks have been moved to the archive.',
   },
   emptyState: [
     'Your list is clear, enjoy your day!',

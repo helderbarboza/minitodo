@@ -27,6 +27,7 @@ const ptbr = {
   },
   toasts: {
     deleteAll: 'Tarefas apagadas!',
+    nDoneTasksMovedToArchive: '{count} tarefas concluídas foram movidas para o arquivo.',
   },
   emptyState: [
     'Sua lista está limpa, aproveite seu dia!',
