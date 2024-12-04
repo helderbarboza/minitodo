@@ -316,9 +316,9 @@
         class="
           pointer-events-none absolute line-clamp-1 h-6
           bg-[linear-gradient(hsl(var(--foreground)),hsl(var(--foreground)))] bg-no-repeat
-          text-transparent transition-[background-size] ease-in-out [background-position:0%_50%]
+          text-transparent transition-[background-size] ease-in-out [background-position:0%_0.7rem]
           [background-size:0%_1px] [transition-duration:1s] data-[strike]:[background-size:100%_1px]
-          group-focus-within:hidden
+          group-focus-within:hidden lg:[background-position:0%_0.85rem]
         ">{task.name.split('\n')[0]}</span>
       <textarea
         {...inputAttrs}
