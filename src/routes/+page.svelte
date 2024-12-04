@@ -64,7 +64,7 @@
     localStorage.setItem(localStorageProfileKey, JSON.stringify(profile))
   })
 
-  let newInputEl: HTMLInputElement
+  let newInputEl: HTMLTextAreaElement | undefined = $state()
   let newInputValue: string = $state('')
 
   let nextId = $state(Symbol(0))
@@ -94,11 +94,11 @@
   }
 
   function createTask() {
-    const formattedDescription = newInputEl.value.trim()
-    newInputEl.value = ''
+    const formattedText = newInputValue.trim()
+    newInputValue = ''
 
-    if (formattedDescription.length) {
-      tasks = [{ name: formattedDescription, id: nextId, isDone: false, isArchived: false }, ...tasks]
+    if (formattedText.length) {
+      tasks = [{ name: formattedText, id: nextId, isDone: false, isArchived: false }, ...tasks]
       nextId = Symbol(0)
     }
   }
@@ -149,7 +149,11 @@
   let archivedSectionOpen = $state(false)
   let newFormEl: HTMLFormElement
 
-  const inputAttrs: Record<string, any> = { spellcheck: false, minlength: 1, type: 'text' }
+  const setTextAreaRows = (node: HTMLTextAreaElement) => {
+    node.setAttribute('rows', node.value.split('\n').length.toString())
+  }
+
+  const inputAttrs: Record<string, any> = { spellcheck: false, type: 'text' }
 </script>
 
 <svelte:window
@@ -182,17 +186,21 @@
     }}
   >
     <div class="relative">
-      <input
+      <textarea
         {...inputAttrs}
         id="new-task"
         bind:this={newInputEl}
         bind:value={newInputValue}
         data-nav
+        rows="1"
+        oninput={e => setTextAreaRows(e.currentTarget)}
         class="
-          mb-2 flex h-9 w-full border-b border-dashed border-input bg-background px-3 py-2 text-sm
-          ring-offset-background transition-all disabled:cursor-not-allowed disabled:opacity-50
-          focus-visible:rounded-md focus-visible:outline-none focus-visible:ring-2
-          focus-visible:ring-ring focus-visible:ring-offset-0 lg:text-base
+          mb-2 flex max-h-[50vh] w-full resize-none overflow-hidden border-b border-dashed
+          border-input bg-background px-3 py-2 text-sm ring-offset-background
+          transition-[box-shadow,border-width,border-radius] disabled:cursor-not-allowed
+          disabled:opacity-50 focus-visible:rounded-md focus-visible:border-b-transparent
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+          focus-visible:ring-offset-0 focus:resize-y focus:overflow-y-auto lg:text-base
         "
         onblur={(e) => {
           if (e.currentTarget.value.length) {
@@ -201,18 +209,28 @@
           else {
             newFormEl.reset()
           }
+          e.currentTarget.attributeStyleMap.delete('height')
+          e.currentTarget.setAttribute('rows', '1')
         }}
+        onkeydown={(e) => {
+          if (e.key === 'Escape' || (e.key === 'Enter' && !e.shiftKey)) {
+            e.preventDefault()
+            e.currentTarget.blur()
+          }
+        }}
+
         onkeyup={(e) => {
           if (e.code === 'Escape') {
             newFormEl.reset()
-            newInputEl.blur()
+            newInputEl!.blur()
           }
           else {
             handleArrowNavigation(e)
           }
         }}
       />
-      {#if newInputValue?.length === 0}
+
+      {#if newInputValue.length === 0}
         {#key placeholderKey}
           <span
             aria-hidden
@@ -222,7 +240,7 @@
             "
             in:fly={{ duration: 1000, x: '-0.5rem', delay: 1000, easing: quadOut }}
             out:fly={{ duration: 1000, x: '0.5rem', easing: quadIn }}
-          >&quot;{$LL.taskDescriptionPlaceholder[placeholderKey]()}&quot;</span>
+          >"{$LL.taskDescriptionPlaceholder[placeholderKey]()}"</span>
         {/key}
       {/if}
     </div>
@@ -236,9 +254,9 @@
     tabindex={0}
     class={cn(buttonVariants(
       {
-        class: `flex items-center hover:bg-accent/50 justify-start gap-2 transition-all 
-        data-[checked=true]:opacity-40 data-[checked=true]:hover:opacity-100 focus:border-primary 
-        z-0 text-base px-1`,
+        class: `flex items-start hover:bg-accent/50 justify-start gap-2 transition-all 
+        data-[checked=true]:opacity-40 data-[checked=true]:focus-within:opacity-100 data-[checked=true]:hover:opacity-100 focus:border-primary 
+        z-0 text-base px-1 focus-within:h-auto min-h-9 p-0.5`,
         variant: 'ghost',
         size: 'default',
       },
@@ -247,12 +265,6 @@
     data-nav
     onkeyup={(e) => {
       handleArrowNavigation(e)
-    // if (e.code === 'Space') {
-      //   toggleIsDoneTask(task.id)
-      // }
-
-      // if (e.code === 'Delete')
-      //   deleteTask(task.id)
     }}
   >
     <Button
@@ -295,60 +307,57 @@
 
       </div>
     </Button>
-    <div class="mr-auto w-full overflow-x-hidden" title={task.name}>
-      <div class="relative p-0.5">
-        <!-- This is an invisible element containing the text, so we can obtain its width -->
-        <div class="invisible absolute w-fit max-w-full px-1 text-sm" bind:clientWidth={task.clientWidth}>{task.name}</div>
-        <input
-          {...inputAttrs}
-          {id}
-          value={task.name}
-          style:--text-width="{task.clientWidth + 1}px"
-          class="
-            peer flex w-[--text-width] min-w-16 max-w-full truncate rounded-md bg-transparent px-1
-            py-0.5 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
-            focus-visible:invalid:border-destructive/80 focus-visible:invalid:ring-destructive
-            focus:w-full lg:text-base
-          "
-          required
-          onkeydown={(e) => {
-            if (e.key === 'Escape') {
-              e.currentTarget.value = task.name
-              e.currentTarget.blur()
-            }
+    <div class="group relative mr-auto flex w-full items-center overflow-x-hidden p-1 *:text-sm" title={task.name}>
 
-            if (e.key === 'Enter')
-              e.currentTarget.blur()
-          }}
-          onchange={(e) => {
-            if (e.currentTarget.validity.valid) {
-              task.name = e.currentTarget.value
-            }
-            else {
-              e.currentTarget.value = task.name
-            }
-          }}
-        />
-        {#if task.isDone}
-          <svg
-            width="10"
-            height="10"
-            viewBox="0 0 10 1"
-            fill="none"
-            class="
-              absolute top-1/2 !h-0.5 !w-full stroke-foreground stroke-1 transition-opacity
-              peer-focus:opacity-0
-            "
-            preserveAspectRatio="none"
-          >
-            <path
-              in:draw={{ duration: 1000, easing: quadIn }}
-              out:fade={{ duration: 500, easing: quadInOut }}
-              d="M0 0 10 0Z"
-            />
-          </svg>
-        {/if}
-      </div>
+      <span
+        data-strike={task.isDone ? '' : undefined}
+        class="
+          pointer-events-none absolute line-clamp-1
+          bg-[linear-gradient(hsl(var(--foreground)),hsl(var(--foreground)))] bg-no-repeat px-1
+          text-transparent transition-[background-size] ease-in-out [background-position:0%_50%]
+          [background-size:0%_1px] [transition-duration:1s] data-[strike]:[background-size:100%_1px]
+          group-focus-within:hidden
+        ">{task.name.split('\n')[0]}</span>
+
+      <textarea
+        {...inputAttrs}
+        {id}
+        use:setTextAreaRows
+        oninput={(event) => { setTextAreaRows(event.currentTarget) }}
+        value={task.name}
+        class="
+          peer line-clamp-1 h-6 w-full min-w-16 max-w-full resize-none overflow-hidden rounded-md
+          bg-transparent px-1 py-0.5 focus-visible:outline-none focus-visible:ring-1
+          focus-visible:ring-ring focus-visible:invalid:border-destructive/80
+          focus-visible:invalid:ring-destructive focus:line-clamp-none focus:h-fit
+          focus:max-h-[25vh] focus:min-h-6 focus:w-full focus:!overflow-y-auto
+          focus:overflow-x-hidden lg:text-base
+        "
+        onkeydown={(e) => {
+          if (e.key === 'Escape') {
+            e.currentTarget.value = task.name
+            e.currentTarget.blur()
+          }
+
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault()
+            e.currentTarget.blur()
+          }
+        }}
+        onchange={(e) => {
+          const trimmedValue = e.currentTarget.value.trim()
+          if (trimmedValue.length > 0) {
+            task.name = trimmedValue
+          }
+          else {
+            e.currentTarget.value = task.name
+          }
+        }}
+        onblur={(e) => {
+          e.currentTarget.scrollTo(0, 0)
+        }}
+      />
+
     </div>
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
@@ -504,8 +513,8 @@
       <Button
         title={$LL.actions.newTask()}
         onclick={() => {
-          newInputEl.focus()
-          newInputEl.scroll({ behavior: 'smooth' })
+          newInputEl!.focus()
+          newInputEl!.scroll({ behavior: 'smooth' })
         }}
         size="icon"
         class="flex shrink-0 sm:hidden"
@@ -516,8 +525,8 @@
       <Button
         title={$LL.actions.newTask()}
         onclick={() => {
-          newInputEl.focus()
-          newInputEl.scroll({ behavior: 'smooth' })
+          newInputEl!.focus()
+          newInputEl!.scroll({ behavior: 'smooth' })
         }}
         class="hidden shrink-0 sm:flex"
       >
