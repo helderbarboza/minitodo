@@ -228,12 +228,12 @@
             handleArrowNavigation(e)
           }
         }}
-      />
+      ></textarea>
 
-      {#if true}
+      {#if newInputValue.length === 0}
         {#key placeholderKey}
           <span
-            aria-hidden
+            aria-hidden="true"
             class="
               pointer-events-none absolute inset-x-3 top-3 select-none truncate text-sm italic
               text-muted-foreground opacity-50 lg:top-2 lg:text-base
@@ -356,7 +356,7 @@
         onblur={(e) => {
           e.currentTarget.scrollTo(0, 0)
         }}
-      />
+      ></textarea>
 
     </div>
     <DropdownMenu.Root>
