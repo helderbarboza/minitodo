@@ -185,7 +185,7 @@
       createTask()
     }}
   >
-    <div class="relative">
+    <div class="relative *:text-sm *:lg:text-base">
       <textarea
         {...inputAttrs}
         id="new-task"
@@ -196,11 +196,11 @@
         oninput={e => setTextAreaRows(e.currentTarget)}
         class="
           mb-2 flex max-h-[50vh] w-full resize-none overflow-hidden border-b border-dashed
-          border-input bg-background px-3 py-2 text-sm ring-offset-background
+          border-input bg-background px-3 py-2 ring-offset-background
           transition-[box-shadow,border-width,border-radius] disabled:cursor-not-allowed
           disabled:opacity-50 focus-visible:rounded-md focus-visible:border-b-transparent
           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-          focus-visible:ring-offset-0 focus:resize-y focus:overflow-y-auto lg:text-base
+          focus-visible:ring-offset-0 focus:resize-y focus:overflow-y-auto
         "
         onblur={(e) => {
           if (e.currentTarget.value.length) {
@@ -230,13 +230,13 @@
         }}
       />
 
-      {#if newInputValue.length === 0}
+      {#if true}
         {#key placeholderKey}
           <span
             aria-hidden
             class="
-              pointer-events-none absolute inset-x-3 top-2 select-none truncate text-sm italic
-              text-muted-foreground opacity-50 lg:top-1.5 lg:text-base
+              pointer-events-none absolute inset-x-3 top-3 select-none truncate text-sm italic
+              text-muted-foreground opacity-50 lg:top-2 lg:text-base
             "
             in:fly={{ duration: 1000, x: '-0.5rem', delay: 1000, easing: quadOut }}
             out:fly={{ duration: 1000, x: '0.5rem', easing: quadIn }}
@@ -254,7 +254,7 @@
     tabindex={0}
     class={cn(buttonVariants(
       {
-        class: `flex items-start hover:bg-accent/50 justify-start gap-2 transition-all 
+        class: `flex items-start hover:bg-accent/50 justify-start gap-2 lg:gap-3 transition-all 
         data-[checked=true]:opacity-40 data-[checked=true]:focus-within:opacity-100 data-[checked=true]:hover:opacity-100 focus:border-primary 
         z-0 text-base px-1 focus-within:h-auto min-h-9 p-0.5`,
         variant: 'ghost',
@@ -307,18 +307,19 @@
 
       </div>
     </Button>
-    <div class="group relative mr-auto flex w-full items-center overflow-x-hidden p-1 *:text-sm" title={task.name}>
-
+    <div class="
+      group relative mr-auto flex w-full items-center overflow-x-hidden p-1 *:px-1 *:py-0.5
+      *:text-sm *:lg:text-base lg:p-0.5
+    " title={task.name}>
       <span
         data-strike={task.isDone ? '' : undefined}
         class="
-          pointer-events-none absolute line-clamp-1
-          bg-[linear-gradient(hsl(var(--foreground)),hsl(var(--foreground)))] bg-no-repeat px-1
+          pointer-events-none absolute line-clamp-1 h-6
+          bg-[linear-gradient(hsl(var(--foreground)),hsl(var(--foreground)))] bg-no-repeat
           text-transparent transition-[background-size] ease-in-out [background-position:0%_50%]
           [background-size:0%_1px] [transition-duration:1s] data-[strike]:[background-size:100%_1px]
           group-focus-within:hidden
         ">{task.name.split('\n')[0]}</span>
-
       <textarea
         {...inputAttrs}
         {id}
@@ -327,11 +328,10 @@
         value={task.name}
         class="
           peer line-clamp-1 h-6 w-full min-w-16 max-w-full resize-none overflow-hidden rounded-md
-          bg-transparent px-1 py-0.5 focus-visible:outline-none focus-visible:ring-1
-          focus-visible:ring-ring focus-visible:invalid:border-destructive/80
-          focus-visible:invalid:ring-destructive focus:line-clamp-none focus:h-fit
-          focus:max-h-[25vh] focus:min-h-6 focus:w-full focus:!overflow-y-auto
-          focus:overflow-x-hidden lg:text-base
+          bg-transparent focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
+          focus-visible:invalid:border-destructive/80 focus-visible:invalid:ring-destructive
+          focus:line-clamp-none focus:h-fit focus:max-h-[25vh] focus:min-h-6 focus:w-full
+          focus:!overflow-y-auto focus:overflow-x-hidden
         "
         onkeydown={(e) => {
           if (e.key === 'Escape') {
