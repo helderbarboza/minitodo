@@ -117,6 +117,9 @@ const ptbr = {
     'Pegar cinco dólares emprestado com o Darryl',
     'Tentar arranjar um encontro do Creed com a Meredith',
   ],
+  og: {
+    description: 'Uma lista de tarefas simples que funciona só para você, mantendo suas tarefas seguras e organizadas.',
+  },
 } satisfies Translation
 
 export default ptbr

@@ -17,5 +17,6 @@ export const load = (async (event) => {
     localStorage.setItem(langParam, value)
   })
   setLocale(newLocale)
+
   return event.data
 }) satisfies LayoutLoad

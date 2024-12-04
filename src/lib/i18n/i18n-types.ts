@@ -439,6 +439,12 @@ type RootTranslation = {
 		 */
 		'52': string
 	}
+	og: {
+		/**
+		 * A​ ​s​i​m​p​l​e​ ​t​o​d​o​ ​l​i​s​t​ ​t​h​a​t​ ​w​o​r​k​s​ ​j​u​s​t​ ​f​o​r​ ​y​o​u​,​ ​k​e​e​p​i​n​g​ ​y​o​u​r​ ​t​a​s​k​s​ ​s​a​f​e​ ​a​n​d​ ​o​r​g​a​n​i​z​e​d​.
+		 */
+		description: string
+	}
 }
 
 export type TranslationFunctions = {
@@ -863,6 +869,12 @@ export type TranslationFunctions = {
 		 * Try to set Creed up on a date with Meredith
 		 */
 		'52': () => LocalizedString
+	}
+	og: {
+		/**
+		 * A simple todo list that works just for you, keeping your tasks safe and organized.
+		 */
+		description: () => LocalizedString
 	}
 }
 

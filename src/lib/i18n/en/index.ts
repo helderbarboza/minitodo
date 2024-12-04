@@ -117,6 +117,9 @@ const en = {
     'Borrow five bucks from Darryl',
     'Try to set Creed up on a date with Meredith',
   ],
+  og: {
+    description: 'A simple todo list that works just for you, keeping your tasks safe and organized.',
+  },
 } satisfies BaseTranslation
 
 export default en
