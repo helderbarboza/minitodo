@@ -4,7 +4,7 @@ A minimal and beauty To Do app.
 
 ## Description
 
-This repository contains a minimal and elegant To Do application built using TypeScript and Svelte. The project aims to provide a simple yet effective way to manage tasks.
+This repository contains a minimal and elegant To Do application built using TypeScript and Svelte. The project aims to provide a simple yet effective way to manage tasks. All tasks are stored in the browser's local storage, ensuring that your data remains private and under your control.
 
 ## Features
 
