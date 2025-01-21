@@ -1,38 +1,53 @@
-# create-svelte
+# <img src="/static/cover.png" height="280" alt="minitodo" />
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+A minimal and beauty To Do app.
 
-## Creating a project
+## Description
 
-If you're seeing this, you've probably already done this step. Congrats!
+This repository contains a minimal and elegant To Do application built using TypeScript and Svelte. The project aims to provide a simple yet effective way to manage tasks.
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Features
 
-# create a new project in my-app
-npx sv create my-app
-```
+- Minimalistic design
+- Easy to use interface
+- Built with TypeScript and Svelte
+- Responsive design
 
-## Developing
+## Installation
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+To run this project locally, follow these steps:
 
-```bash
-npm run dev
+1. **Clone the repository:**
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+   ```bash
+   git clone https://github.com/helderbarboza/minitodo.git
+   cd minitodo
+   ```
 
-## Building
+2. **Install dependencies:**
 
-To create a production version of your app:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run build
-```
+3. **Run the application:**
 
-You can preview the production build with `npm run preview`.
+   ```bash
+   npm run dev
+   ```
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+4. Open your browser and navigate to `http://localhost:5000` to see the app in action.
+
+## Usage
+
+- Add tasks by typing in the input field and pressing Enter.
+- Mark tasks as completed by clicking on them.
+- Remove tasks by clicking the delete button next to each task.
+
+## Contributing
+
+Contributions are welcome! If you have any ideas, suggestions, or find any bugs, please open an issue or submit a pull request.
+
+---
+
+Feel free to modify or add any additional information.
