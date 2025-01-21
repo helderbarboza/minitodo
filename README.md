@@ -1,4 +1,4 @@
-# <img src="/static/cover.png" height="280" alt="minitodo" />
+<h1 align="center"><img src="/static/cover.png" height="280" alt="minitodo" /></h1>
 
 A minimal and beauty To Do app.
 
